@@ -2,37 +2,50 @@ using System;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Munition : MonoBehaviour
 {
     private Rigidbody2D rb;
-    [SerializeField] private float _startSpeed;
+    [SerializeField] private float _spawnSpeed;
     [SerializeField] private float _baseDamage;
-    private bool _disabled = false;
+    private bool _disabled;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // test values - wll be called from munition manager in the fusture
+        // UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
+        // UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
+        // SetTrajectory(coords,targetCoords,4);
+        this._disabled = false;
         rb = GetComponent<Rigidbody2D>();
-        transform.eulerAngles = new UnityEngine.Vector3(0, 0, UnityEngine.Random.Range(-90, 90));
-        rb.linearVelocity = transform.up * _startSpeed;
+        rb.linearVelocity = transform.up * _spawnSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Sphaghetti if statements below - make despawn ranges cleaner sometime
+        // Deleting munitions that move out of camera
+        float cameraScale = 5f;
+        float destructionOffset = 2f;
 
-        if (transform.position.y >= 5 | transform.position.y <=-5 | transform.position.x >= 16f/9f * 5f | transform.position.x <= -16f/9f * 5f)     // outside the frame
-        {
-            this._disabled = true;      // prevent killing enemies outside of the frame (disabled functionality yet to be implemented)
-        }    // yea, no bullet is going to be over 1.5 times as tall as the camera height
-        if (transform.position.y >= 10 | transform.position.y <= -10 | transform.position.x >= 16f/9f * 10f | transform.position.x <= -16f/9f * 10f)
-        {
-            Destroy(gameObject);        // deletes objects outside the frame
-        }
+        // pls dont freak out over this unconventional formatting i dont know a cleaner way to check position ranges :cry face emoji:
+        // disable munitions that move out of the camera frame - prevents sniping enemies that haven't entered yet
+        if (transform.position.y >= cameraScale                
+            || transform.position.y <= -(cameraScale)
+            || transform.position.x >= 16f/9f * cameraScale
+            || transform.position.x <= -(16f/9f * cameraScale))
+        {this._disabled = true;}      // prevent killing enemies outside of the frame (disabled functionality yet to be implemented)
+        
+        // delete munitions after they move a little further out of the camera frame
+        // prevents munitions from dissapearing while partially visible on screen (more visually appealing)
+        if (transform.position.y >= cameraScale + destructionOffset
+            || transform.position.y <= -(cameraScale + destructionOffset)
+            || transform.position.x >= 16f/9f * cameraScale + destructionOffset
+            || transform.position.x <= -(16f/9f * cameraScale + destructionOffset))
+        {Destroy(gameObject);}
     }
-    public void Pluh()
-    {
-        Debug.Log("*does literally nothing*");
-    }
+
 }
+
+
