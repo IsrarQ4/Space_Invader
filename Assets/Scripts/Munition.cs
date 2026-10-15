@@ -9,14 +9,11 @@ public class Munition : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float _spawnSpeed;
     [SerializeField] private float _baseDamage;
+    [SerializeField] private float _lifeTime;
     private bool _disabled;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // test values - wll be called from munition manager in the fusture
-        // UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
-        // UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
-        // SetTrajectory(coords,targetCoords,4);
         this._disabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = transform.up * _spawnSpeed;

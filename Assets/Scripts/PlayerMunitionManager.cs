@@ -13,13 +13,13 @@ public class PlayerMunitionManager : MonoBehaviour
     public class Weapon
     {
         // pairs a name with a gameobject (intended to use with muntion prefabs) for easy access in scripts
-        public string name;
-        public GameObject munitionPrefab;
-        public int fireRateHz;
+        public string Name;
+        public GameObject MunitionPrefab;
+        public int FireRateRPM;
     }
 
     [Header("fire rate is WIP, currently does nothing")]
-    public List<Weapon> weapons = new List<Weapon>();
+    public List<Weapon> Weapons = new List<Weapon>();
 
 
     private GameObject _spawnedMunition;
@@ -33,7 +33,8 @@ public class PlayerMunitionManager : MonoBehaviour
     {
         // Test shoot snippet - player and enemy call SpawnMunition
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {   // TEMP VALUES - should be player coords
+        {   
+            // TEMP VALUES - should be player coords
             UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
             UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
             SpawnMunition(coords, GetDirectionFromCoords(coords, targetCoords), "test");
@@ -44,26 +45,30 @@ public class PlayerMunitionManager : MonoBehaviour
         // get the munition gameobject from the Weapons list based on the name
         // GameObject munitionToFire = Weapons[Random.Range(0, Weapons.Count)].munitionPrefab; // Test fire random different types
         GameObject munitionToSpawn = null;
-        foreach (Weapon weapon in weapons)
+        foreach (Weapon weapon in Weapons)
         {
-            if (weapon.name == weaponName)
+            if (weapon.Name == weaponName)
             {
-                munitionToSpawn = weapon.munitionPrefab;
-            }
-            else
-            {
-                Debug.LogError("PlayerMunitionManager.cs/SpawnMunition(): Weapon name not found!",munitionToSpawn);
+                munitionToSpawn = weapon.MunitionPrefab;
+                break;
             }
         }
-        _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);    // spawns test munition
+        if (munitionToSpawn != null)
+        {
+                _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+        }
+        else
+        {
+            Debug.LogError("Munition not spawned: Weapon name not found!");
+        }
     }
-    private UnityEngine.Quaternion GetDirectionFromCoords(UnityEngine.Vector2 startCoords, UnityEngine.Vector2 targetCoords)
+    public Quaternion GetDirectionFromCoords(Vector2 startCoords, Vector2 targetCoords)
     {
-        UnityEngine.Vector2 direction = (UnityEngine.Vector2)targetCoords - (UnityEngine.Vector2)startCoords;
+        Vector2 direction = targetCoords - startCoords;
         if (direction.sqrMagnitude > 0f)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-            UnityEngine.Quaternion rotation = UnityEngine.Quaternion.Euler(0f, 0f, angle);
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
             return rotation;
         }
         else

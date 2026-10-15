@@ -148,20 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0415608c677cf63b0315eaa83a6c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _munitionReference:
-  - {fileID: 2849189264360625134, guid: 042037c16930cef4e86b310857af00f5, type: 3}
-  - {fileID: 6744488537583162255, guid: ac46d864f28b1c4698137089488eea06, type: 3}
-  - {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-  weapons:
-  - name: test
-    munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-    fireRateHz: 0
-  - name: test2
-    munitionPrefab: {fileID: 2849189264360625134, guid: 042037c16930cef4e86b310857af00f5, type: 3}
-    fireRateHz: 0
-  - name: test3
-    munitionPrefab: {fileID: 6744488537583162255, guid: ac46d864f28b1c4698137089488eea06, type: 3}
-    fireRateHz: 0
+  Weapons:
+  - Name: test
+    MunitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+    FireRateRPM: 60
 --- !u!4 &72379297
 Transform:
   m_ObjectHideFlags: 0
