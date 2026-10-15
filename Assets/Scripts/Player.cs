@@ -5,56 +5,34 @@ public class Player : MonoBehaviour
     private Spaceship _ChosenSpaceship;
    void Start()
     {
-    _ChosenSpaceship = null;
+    Spaceship Spaceship1 = new Spaceship(10, 120, 3);
 
-    }
+    Spaceship Spaceship2 = new Spaceship(20, 70, 4);
 
-public void SelectSpaceship(int shipnumber)
-    {
-        if (shipnumber == 1)
-        {
-            _ChosenSpaceship = new Spaceship(10, 120, 3);
-        }
-        if (shipnumber == 2)
-        {
-            _ChosenSpaceship = new Spaceship(20, 70, 4);
-        }
-        if (shipnumber == 3)
-        {
-            _ChosenSpaceship = new Spaceship(5, 150, 5);
-        }
-        if (shipnumber == 4)
-        {
-            _ChosenSpaceship = new Spaceship(15, 100, 2);
-        }
+    Spaceship Spaceship3 = new Spaceship(5, 150, 5);
+
+    Spaceship Spaceship4 = new Spaceship(15, 100, 2);
+
+    _ChosenSpaceship = Spaceship1;
     }
 
    void Update()
    {
-    if (_ChosenSpaceship == null)
-        {
-            return;
-        }
-
     int speed = _ChosenSpaceship.GetMovementSpeed();
-        // Move left
-if (transform.position.x > -8.2f){
+
     if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
-    }   
 
         // Move right
-if (transform.position.x < 8.2f){
     if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
-    }
+   
 
    }
-}
 
 public class Spaceship
     {
@@ -85,7 +63,7 @@ public class Spaceship
     }
     }
   
-    
+    }
   
 
 
