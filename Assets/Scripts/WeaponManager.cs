@@ -1,13 +1,8 @@
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-using NUnit.Framework.Internal;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 
-public class PlayerMunitionManager : MonoBehaviour
+public class WeaponManager : MonoBehaviour
 {
     // list of different weapon types
     // each weapon can be added to the weapons list below for spawn reference
@@ -17,54 +12,57 @@ public class PlayerMunitionManager : MonoBehaviour
         // pairs a name with a gameobject (intended to use with muntion prefabs) for easy access in scripts
         [SerializeField] private string _name;
         [SerializeField] private GameObject _munitionPrefab;
-        public int FireRateRPM;
+        [SerializeField] private int _fireRateRPM;
         
-        
-        public GameObject GetMunitionPrefab()
-        {
-            return this._munitionPrefab;
-        }
         public string GetWeaponName()
         {
             return this._name;
         }
+        public GameObject GetMunitionPrefab()
+        {
+            return this._munitionPrefab;
+        }
+        public int GetFireRateRPM()
+        {
+            return this._fireRateRPM;
+        }
     }
 
     [Header("fire rate is WIP, currently does nothing")]
-    public List<Weapon> Weapons = new List<Weapon>();
+    public List<Weapon> WeaponsReference = new List<Weapon>();
     private GameObject _spawnedMunition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
     }
 
-    float shootTimer = 0f;
+    float shootTimer = 0.2f;
     // Update is called once per frame
     void Update()
     {
+
         // Test shoot snippet - player and enemy call SpawnMunition
         if (shootTimer >= 0f)
         {
             shootTimer -= Time.deltaTime;
         }
-        if (shootTimer >= 0f && Keyboard.current.spaceKey.isPressed)
+        if (Keyboard.current.spaceKey.isPressed && shootTimer <= 0f)
         {   
             // TEMP VALUES - should be player coords
             UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
             UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
-            SpawnMunition(coords, GetDirectionFromCoords(coords, targetCoords), "test");
-            shootTimer = 0.2f;
+            SpawnMunition(coords, GetDirectionFromCoords(coords, targetCoords), "test2");
             shootTimer = 0.2f;
         }
-        Debug.Log(shootTimer);
-        Debug.Log(shootTimer);
+        // Debug.Log(shootTimer);
     }
-    public void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, string weaponName)
+    private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, string weaponName)
     {
         // get the munition gameobject from the Weapons list based on the name
         // GameObject munitionToFire = Weapons[Random.Range(0, Weapons.Count)].munitionPrefab; // Test fire random different types
         GameObject munitionToSpawn = null;
-        foreach (Weapon weapon in Weapons)
+        foreach (Weapon weapon in WeaponsReference)
         {
             if (weapon.GetWeaponName() == weaponName)
             {
