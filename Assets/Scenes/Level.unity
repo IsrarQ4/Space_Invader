@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 72379297}
   - component: {fileID: 72379296}
   m_Layer: 0
-  m_Name: PlayerMunitionManager
+  m_Name: WeaponManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0415608c677cf63b0315eaa83a6c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  Weapons:
-  - Name: test
-    MunitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-    FireRateRPM: 60
+  WeaponsReference:
+  - _name: test2
+    _munitionPrefab: {fileID: 6744488537583162255, guid: ac46d864f28b1c4698137089488eea06, type: 3}
+    _fireRateRPM: 20
 --- !u!4 &72379297
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 72379295}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.15392, y: -0.97999, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

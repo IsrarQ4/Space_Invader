@@ -57,12 +57,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
       propertyPath: _damage
       value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _maxRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _spawnSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
       propertyPath: _startSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _rocketMotor._thrust
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _rocketMotor._burnTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176582576413045622, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+      propertyPath: _rocketMotor._rocketEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
