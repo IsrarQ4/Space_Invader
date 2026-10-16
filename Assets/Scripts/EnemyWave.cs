@@ -9,8 +9,16 @@ public class EnemyWave : MonoBehaviour
     [SerializeField] private float _spawn_interval;
     [SerializeField] private int _enemyMax;
     [SerializeField] private float _enemyOneWeight;
-    private int _enemies = 0;
+    private int _enemiesSpawned = 0;
     private float _timer;
+    public int GetEnemiesSpawned()
+    {
+        return _enemiesSpawned;
+    }
+    public int GetEnemyMax()
+    {
+        return _enemyMax;
+    }   
     public EnemyWave(GameObject enemyPrefabOne, GameObject enemyPrefabTwo, float height, float width, float spawn_interval, int enemyMax, float enemyOneWeight)
     {
         _enemyPrefabOne = enemyPrefabOne;
@@ -48,10 +56,10 @@ public class EnemyWave : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         _timer += Time.deltaTime;
-        if (_enemies < _enemyMax)
+        if (_enemiesSpawned < _enemyMax)
         {
             
             if (_timer >= _spawn_interval)
@@ -69,7 +77,7 @@ public class EnemyWave : MonoBehaviour
                     Instantiate(_enemyPrefabTwo, spawnPosition, Quaternion.identity);
                 }
                 _timer = 0;
-                _enemies++;
+                _enemiesSpawned++;
             }
         }
     }
