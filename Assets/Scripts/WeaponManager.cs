@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,12 @@ public class WeaponManager : MonoBehaviour
 {
     // list of different weapon types
     // each weapon can be added to the weapons list below for spawn reference
+    public string PlayerSelectedWeapon;
+    [Header("fire rate is WIP, currently does nothing")]
+    public List<Weapon> WeaponsReference = new List<Weapon>();
+    private Weapon testWeapon; 
+    private Weapon testWeapon1;
+
     [System.Serializable]
     public class Weapon
     {
@@ -26,15 +33,21 @@ public class WeaponManager : MonoBehaviour
         {
             return this._fireRateRPM;
         }
+        private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
+        {
+            GameObject spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+        }
+        public void OpenFire()
+        {
+            // fire rate stuff should be handled here
+            SpawnMunition(new Vector2(0,0), Quaternion.Euler(0f, 0f, 0f), _munitionPrefab);
+        }
     }
-
-    [Header("fire rate is WIP, currently does nothing")]
-    public List<Weapon> WeaponsReference = new List<Weapon>();
-    private GameObject _spawnedMunition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        testWeapon = WeaponsReference[0];
+        testWeapon1 = WeaponsReference[1];
     }
 
     float shootTimer = 0.2f;
@@ -52,33 +65,39 @@ public class WeaponManager : MonoBehaviour
             // TEMP VALUES - should be player coords
             UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
             UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
-            SpawnMunition(coords, GetDirectionFromCoords(coords, targetCoords), "test2");
+            testWeapon.OpenFire();
             shootTimer = 0.2f;
         }
         // Debug.Log(shootTimer);
     }
-    private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, string weaponName)
-    {
-        // get the munition gameobject from the Weapons list based on the name
-        // GameObject munitionToFire = Weapons[Random.Range(0, Weapons.Count)].munitionPrefab; // Test fire random different types
-        GameObject munitionToSpawn = null;
-        foreach (Weapon weapon in WeaponsReference)
-        {
-            if (weapon.GetWeaponName() == weaponName)
-            {
-                munitionToSpawn = weapon.GetMunitionPrefab();
-                break;
-            }
-        }
-        if (munitionToSpawn != null)
-        {
-                _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
-        }
-        else
-        {
-            Debug.LogError("Munition not spawned: Weapon name not found!");
-        }
-    }
+
+    // OLD SPAWN MUNITION
+    // private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, string weaponName)
+    // {
+    //     // get the munition gameobject from the Weapons list based on the name
+    //     GameObject munitionToSpawn = null;
+    //     foreach (Weapon weapon in WeaponsReference)
+    //     {
+    //         if (weapon.GetWeaponName() == weaponName)
+    //         {
+    //             munitionToSpawn = weapon.GetMunitionPrefab();
+    //             break;
+    //         }
+    //     }
+    //     if (munitionToSpawn != null)
+    //     {
+    //             _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Munition not spawned: Weapon name not found!");
+    //     }
+    // }
+    // private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
+    // {
+    //     _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+    // }
+        
     public Quaternion GetDirectionFromCoords(Vector2 startCoords, Vector2 targetCoords)
     {
         Vector2 direction = targetCoords - startCoords;

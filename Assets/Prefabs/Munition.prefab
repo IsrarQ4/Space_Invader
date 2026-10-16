@@ -179,6 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _spawnSpeed: 4
+  _speed: 3
   _baseDamage: 0
-  _maxRange: 5
+  _maxRange: 4
+  _rocketMotor:
+    _rocketEnabled: 0
+    _burnTime: 0
+    _thrust: 0
