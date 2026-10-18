@@ -151,8 +151,18 @@ public class Munition : MonoBehaviour
         float timeToMaxRange = targetRange / speed;
         return timeToMaxRange;
     }
-// hi kids remember to document the shit out of your code because people dont want spend hours to translating your sphagetti
-// also text retains info better than brain
+    //setter and getter for the dmg bc i need for enemys 
+    public void SetDamage(float damage)
+    {
+        _baseDamage = damage;
+    }
+
+    public float GetDamage()
+    {
+        return _baseDamage;
+    }
+    // hi kids remember to document the shit out of your code because people dont want spend hours to translating your sphagetti
+    // also text retains info better than brain
 }
 
 
