@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,11 @@ public class WeaponManager : MonoBehaviour
 {
     // list of different weapon types
     // each weapon can be added to the weapons list below for spawn reference
+    public string PlayerSelectedWeaponName;
+    public List<Weapon> WeaponsReference = new List<Weapon>();
+    private Weapon testWeapon; 
+    private Weapon testWeapon1;
+
     [System.Serializable]
     public class Weapon
     {
@@ -13,6 +19,7 @@ public class WeaponManager : MonoBehaviour
         [SerializeField] private string _name;
         [SerializeField] private GameObject _munitionPrefab;
         [SerializeField] private int _fireRateRPM;
+        private float _timeToNextShot;
         
         public string GetWeaponName()
         {
@@ -26,59 +33,63 @@ public class WeaponManager : MonoBehaviour
         {
             return this._fireRateRPM;
         }
+        public void TickDownTimeToNextShot()
+        {
+            if (this._timeToNextShot > 0)
+            {
+                this._timeToNextShot -= Time.fixedDeltaTime;
+                Debug.Log(this._timeToNextShot);
+            }
+        }
+        private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
+        {
+            GameObject spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+        }
+        public void OpenFire()
+        {
+            if (this._timeToNextShot <= 0)
+            {
+                SpawnMunition(Vector2.zero, Quaternion.Euler(0f, 0f, 0f), this._munitionPrefab); // insert player pos and turret rotation data here
+                this._timeToNextShot = 60f / this._fireRateRPM;     // convert rpm to seconds
+            }
+            // fire rate stuff should be handled here
+        }
     }
-
-    [Header("fire rate is WIP, currently does nothing")]
-    public List<Weapon> WeaponsReference = new List<Weapon>();
-    private GameObject _spawnedMunition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        testWeapon = GetWeaponFromName("test");
+        // testWeapon1 = WeaponsReference[1];
     }
 
-    float shootTimer = 0.2f;
+    // float shootTimer = 0.2f;
     // Update is called once per frame
     void Update()
     {
-
-        // Test shoot snippet - player and enemy call SpawnMunition
-        if (shootTimer >= 0f)
-        {
-            shootTimer -= Time.deltaTime;
-        }
-        if (Keyboard.current.spaceKey.isPressed && shootTimer <= 0f)
+        if (Keyboard.current.spaceKey.isPressed)
         {   
-            // TEMP VALUES - should be player coords
-            UnityEngine.Vector2 coords = new UnityEngine.Vector2(8,-2);
-            UnityEngine.Vector2 targetCoords = new UnityEngine.Vector2(-8, -3);
-            SpawnMunition(coords, GetDirectionFromCoords(coords, targetCoords), "test2");
-            shootTimer = 0.2f;
+            testWeapon.OpenFire();
         }
-        // Debug.Log(shootTimer);
+        testWeapon.TickDownTimeToNextShot();
     }
-    private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, string weaponName)
+        
+    public Weapon GetWeaponFromName(string name)
     {
-        // get the munition gameobject from the Weapons list based on the name
-        // GameObject munitionToFire = Weapons[Random.Range(0, Weapons.Count)].munitionPrefab; // Test fire random different types
-        GameObject munitionToSpawn = null;
-        foreach (Weapon weapon in WeaponsReference)
+        Weapon weapon = null;
+        foreach (Weapon w in WeaponsReference)
         {
-            if (weapon.GetWeaponName() == weaponName)
+            if (w.GetWeaponName() == name)
             {
-                munitionToSpawn = weapon.GetMunitionPrefab();
-                break;
+                weapon = w;
             }
         }
-        if (munitionToSpawn != null)
+        if (weapon == null)
         {
-                _spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+            Debug.LogError("GetWeaponFromName(): Weapon name not found!");
         }
-        else
-        {
-            Debug.LogError("Munition not spawned: Weapon name not found!");
-        }
+        return weapon;
     }
+
     public Quaternion GetDirectionFromCoords(Vector2 startCoords, Vector2 targetCoords)
     {
         Vector2 direction = targetCoords - startCoords;
