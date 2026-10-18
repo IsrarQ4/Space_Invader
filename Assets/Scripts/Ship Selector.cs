@@ -20,7 +20,7 @@ public class ShipSelector : MonoBehaviour
         ship1Button.onClick.AddListener(() => SelectShip(1));
         ship2Button.onClick.AddListener(() => SelectShip(2));
         ship3Button.onClick.AddListener(() => SelectShip(3));
-        ship4Button.onClick.AddListener(() => SelectShip(3));
+        ship4Button.onClick.AddListener(() => SelectShip(4));
 
     }
     void SelectShip(int shipNumber)
