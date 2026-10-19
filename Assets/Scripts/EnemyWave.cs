@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyWave : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefabOne;
-    [SerializeField] private GameObject _enemyPrefabTwo;
-    [SerializeField] private float _height;
-    [SerializeField] private float _width;
-    [SerializeField] private float _spawnInterval;
-    [SerializeField] private int _enemyMax;
-    [SerializeField] private float _enemyOneWeight;
+    private GameObject _enemyPrefabOne;
+    private GameObject _enemyPrefabTwo;
+    private float _height;
+    private float _width;
+    private float _spawnInterval;
+    private int _enemyMax;
+    private float _enemyOneWeight;
     private int _enemiesSpawned = 0;
     
     public int GetEnemiesSpawned()
@@ -29,6 +29,22 @@ public class EnemyWave : MonoBehaviour
         _enemyPrefabTwo = enemyPrefabTwo;
         _height = height;
         _width = width;
+        if (height < 0)
+                    {
+            _height = 0f;
+        }
+        else
+        {
+            height = _height;
+        }
+        if (width < 0)
+        {
+            _height = 0f;
+        }
+        else
+        {
+            width = _height;
+        }
         if (_spawnInterval < 0)
         {
             _spawnInterval = 0f;
@@ -52,12 +68,6 @@ public class EnemyWave : MonoBehaviour
         }
             
     }   
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Update()
-    {
-        SpawnEnemy();
-        
-    }
 
     // Update is called once per frame
     public void SpawnEnemy()
@@ -70,7 +80,7 @@ public class EnemyWave : MonoBehaviour
                 float randomY = Random.Range(0, _height);
                 Vector2 spawnPosition = new Vector2(randomX, randomY);
                 int randomEnemy = Random.Range(0, 100);
-                if (randomEnemy < _enemyOneWeight * 100)
+                if (randomEnemy <= _enemyOneWeight * 100)
                 {
                     Instantiate(_enemyPrefabOne, spawnPosition, Quaternion.identity);
                 }
