@@ -52,8 +52,15 @@ if (transform.position.x < 8.2f){
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
     }
-
    }
+
+   public float GetPlayerHealth()
+{
+    if (_ChosenSpaceship == null)
+        return 0;
+
+    return _ChosenSpaceship.GetPlayerHealth();
+}
 }
 
 public class Spaceship
@@ -78,6 +85,10 @@ public class Spaceship
     {
         return _player_health;
     }
+    public float GetMaxHealth()
+    {
+        return _player_health;
+    }
 
     public int GetBulletSpeed()
     {
@@ -85,7 +96,7 @@ public class Spaceship
     }
     }
   
-    
+
   
 
 
