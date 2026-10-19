@@ -1,9 +1,11 @@
 using UnityEngine;
 
+
 public class EnemyWave : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefabOne;
     [SerializeField] private GameObject _enemyPrefabTwo;
+    [SerializeField] private GameObject[] _enemyPrefabs;
     [SerializeField] private float _height;
     [SerializeField] private float _width;
     [SerializeField] private float _spawn_interval;
@@ -61,21 +63,14 @@ public class EnemyWave : MonoBehaviour
         _timer += Time.deltaTime;
         if (_enemiesSpawned < _enemyMax)
         {
-            
+
             if (_timer >= _spawn_interval)
             {
                 float randomX = Random.Range(-_width, _width);
                 float randomY = Random.Range(0, _height);
                 Vector2 spawnPosition = new Vector2(randomX, randomY);
-                int randomEnemy = Random.Range(0, 100);
-                if (randomEnemy < _enemyOneWeight * 100)
-                {
-                    Instantiate(_enemyPrefabOne, spawnPosition, Quaternion.identity);
-                }
-                else
-                {
-                    Instantiate(_enemyPrefabTwo, spawnPosition, Quaternion.identity);
-                }
+                int randomIndex = Random.Range(0, _enemyPrefabs.Length);
+                Instantiate(_enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
                 _timer = 0;
                 _enemiesSpawned++;
             }

@@ -398,7 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1671246199}
-  - component: {fileID: 1671246198}
+  - component: {fileID: 1671246200}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -406,25 +406,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1671246198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671246197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ff61f2d0120534282ec529c2f6041b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
-  _enemyPrefabOne: {fileID: 8013804303117693443, guid: c67f51855cf9bd049b18abf14103631e, type: 3}
-  _enemyPrefabTwo: {fileID: 8013804303117693443, guid: aeaddbf41214d4140bddbb714c0cb21a, type: 3}
-  _height: 4
-  _width: 8
-  _spawn_interval: 2
-  _enemyMax: 5
-  _enemyOneWeight: 0.5
 --- !u!4 &1671246199
 Transform:
   m_ObjectHideFlags: 0
@@ -440,6 +421,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671246200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671246197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ff61f2d0120534282ec529c2f6041b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
+  _enemyPrefabOne: {fileID: 0}
+  _enemyPrefabTwo: {fileID: 0}
+  _enemyPrefabs:
+  - {fileID: 8013804303117693443, guid: 1cd0a71cdb4d46f4dac06acd79195ace, type: 3}
+  - {fileID: 8013804303117693443, guid: 90897c9b49a9c3a49b7b819f0136348e, type: 3}
+  - {fileID: 8013804303117693443, guid: 78769ebe8cc550645aa1c2782dfdcf14, type: 3}
+  - {fileID: 8013804303117693443, guid: 271edca5a98ba674593a94ffeacb4e44, type: 3}
+  - {fileID: 8013804303117693443, guid: 8a23040b2ccbbec41a920dc30b77f808, type: 3}
+  - {fileID: 8013804303117693443, guid: aa1b126c256d75a4e9bd883fe13159d9, type: 3}
+  _height: 4
+  _width: 8
+  _spawn_interval: 2
+  _enemyMax: 10
+  _enemyOneWeight: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
