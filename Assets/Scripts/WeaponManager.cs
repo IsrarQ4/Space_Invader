@@ -9,8 +9,6 @@ public class WeaponManager : MonoBehaviour
     // each weapon can be added to the weapons list below for spawn reference
     public string PlayerSelectedWeaponName;
     public List<Weapon> WeaponsReference = new List<Weapon>();
-    private Weapon testWeapon; 
-    private Weapon testWeapon1;
 
     [System.Serializable]
     public class Weapon
@@ -58,8 +56,7 @@ public class WeaponManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        testWeapon = GetWeaponFromName("test");
-        // testWeapon1 = WeaponsReference[1];
+
     }
 
     // float shootTimer = 0.2f;
@@ -68,9 +65,12 @@ public class WeaponManager : MonoBehaviour
     {
         if (Keyboard.current.spaceKey.isPressed)
         {   
-            testWeapon.OpenFire(Vector2.zero, 0);
+            GetWeaponFromName("gun").OpenFire(Vector2.zero, 0);
         }
-        testWeapon.TickDownTimeToNextShot();
+        foreach (Weapon weapon in WeaponsReference)
+        {
+            weapon.TickDownTimeToNextShot();
+        }
     }
         
     public Weapon GetWeaponFromName(string name)
