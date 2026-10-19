@@ -113,7 +113,10 @@ MonoBehaviour:
     MoveSpeed: 1
   _xLimit: 8
   _minTravel: 2
-  _bulletPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}
+  _weapon:
+    _name: this field is not neccessary to fill out
+    _munitionPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}
+    _fireRateRPM: 20
 --- !u!50 &8791884557569448240
 Rigidbody2D:
   serializedVersion: 5

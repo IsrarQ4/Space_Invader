@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8791884557569448240}
   - component: {fileID: 239511416383867296}
   m_Layer: 0
-  m_Name: Claude
+  m_Name: Enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.44, y: 0.44, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,12 +84,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7285321912554344259, guid: 2c50265ad2bce8b4189fd299321cb663, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.9150943, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.8, y: 9.8}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -107,13 +107,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _stats:
-    MaxHealth: 12
-    Damage: 12
-    FireRate: 0.5
-    MoveSpeed: 1.5
+    MaxHealth: 10
+    Damage: 5
+    FireRate: 1
+    MoveSpeed: 2
   _xLimit: 8
   _minTravel: 2
-  _bulletPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}
+  _weapon:
+    _name: this field is not neccessary to fill out
+    _munitionPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}
+    _fireRateRPM: 30
 --- !u!50 &8791884557569448240
 Rigidbody2D:
   serializedVersion: 5
@@ -179,11 +182,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 2.25}
-    newSize: {x: 9.8, y: 9.8}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.25, y: 2.25}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

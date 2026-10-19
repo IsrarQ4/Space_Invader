@@ -151,11 +151,14 @@ public class Munition : MonoBehaviour
         float timeToMaxRange = targetRange / speed;
         return timeToMaxRange;
     }
-    //setter and getter for the dmg bc i need for enemys 
-    public void SetDamage(float damage)
-    {
-        _baseDamage = damage;
-    }
+    //setter and getter for the dmg bc i need for enemys
+    // No you dont, just make a new munition prefab and attach it inside the
+    // muntionprefab field of the serialized Weapon object of the enemy
+    
+    // public void SetDamage(float damage)
+    // {
+    //     _baseDamage = damage;
+    // }
 
     public float GetDamage()
     {

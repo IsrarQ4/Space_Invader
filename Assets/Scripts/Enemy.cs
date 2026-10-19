@@ -18,8 +18,8 @@ public class EnemyStats
     public EnemyStats(float maxHealth, float damage, float fireRate, float moveSpeed)
     {
         MaxHealth = maxHealth;
-        Damage = damage;
-        FireRate = fireRate;
+        // Damage = damage;
+        // FireRate = fireRate;
         MoveSpeed = moveSpeed;
     }
 
@@ -34,25 +34,33 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _xLimit = 8f;       
     [SerializeField] private float _minTravel = 2f;     
 
-    [Header("Shooting")]
-    [SerializeField] private GameObject _bulletPrefab; 
+    // [Header("Shooting")]
+    // [SerializeField] private GameObject _bulletPrefab; 
+
+    [Header("shooty pew pew")]
+    [SerializeField] private WeaponManager.Weapon _weapon;
 
     private float _currentHealth;
     private float _targetX;
-    private float _shootTimer;
+    // private float _shootTimer;
 
     void Start()
     {
         _currentHealth = _stats.MaxHealth;
         PickNewTargetX();
         // the first shot is random bc if they will all shoot at once and that would be weird
-        _shootTimer = Random.Range(0f, GetShootDelay());
+        // _shootTimer = Random.Range(0f, GetShootDelay());
     }
 
     void Update()
     {
         Move();
-        Shoot();
+        // Shoot();
+        if (true)   //add more shooting conditions to make shots more deliberate, eg if x pos matches player x pos, or maybe bursts of suppresive fire to cut off movement range. // ballistics calculations for the funnies?
+        {
+            _weapon.OpenFire(transform.position, 180f);
+        }
+        _weapon.TickDownTimeToNextShot(); // ticks down weapon reload timer regardless of firing or not
     }
 
     // use this after instantiate to give different stats basically the setter
@@ -73,19 +81,19 @@ public class Enemy : MonoBehaviour
     }
 
     //the fire rate if its 0 it means it doesnt shoot btw
-    private float GetShootDelay()
-    {
-        if (_stats.FireRate <= 0f)
-        {
-            return float.MaxValue;  
-        }
-        return 1f / _stats.FireRate;
-    }
+    // private float GetShootDelay()
+    // {
+    //     if (_stats.FireRate <= 0f)
+    //     {
+    //         return float.MaxValue;  
+    //     }
+    //     return 1f / _stats.FireRate;
+    // }
 
     // moves towards target x once it reaches it goes to the new target x
     private void Move()
     {
-        Vector3 pos = transform.position;
+        Vector2 pos = transform.position;       // no need to use vector3 for 2d position
         pos.x = Mathf.MoveTowards(pos.x, _targetX, _stats.MoveSpeed * Time.deltaTime);
         transform.position = pos;
 
@@ -111,20 +119,22 @@ public class Enemy : MonoBehaviour
     }
 
     //shoots idk what else to say i needed the setter here btw keanu
-    private void Shoot()
-    {
-        _shootTimer -= Time.deltaTime;
-        if (_shootTimer <= 0f)
-        {
-            GameObject bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, 180f));
-            Munition munition = bullet.GetComponent<Munition>();
-            if (munition != null)
-            {
-                munition.SetDamage(_stats.Damage);
-            }
-            _shootTimer = GetShootDelay();
-        }
-    }
+    // you can make new Weapon objects as properties of Enemy
+    // Weapon handles the muntionprefab and firerate, its serialized in the inspecter as well.
+    // private void Shoot()
+    // {
+    //     _shootTimer -= Time.deltaTime;
+    //     if (_shootTimer <= 0f)
+    //     {
+    //         GameObject bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, 180f));
+    //         Munition munition = bullet.GetComponent<Munition>();
+    //         if (munition != null)
+    //         {
+    //             munition.SetDamage(_stats.Damage);
+    //         }
+    //         _shootTimer = GetShootDelay();
+    //     }
+    // }
 
     //use this for whne the player hits the enemy
     public void TakeDamage(float damage)

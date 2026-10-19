@@ -45,14 +45,14 @@ public class WeaponManager : MonoBehaviour
         {
             GameObject spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
         }
-        public void OpenFire()
+        public void OpenFire(Vector2 pos, float angle)
+        // rotation of 0 is straight up
         {
             if (this._timeToNextShot <= 0)
             {
-                SpawnMunition(Vector2.zero, Quaternion.Euler(0f, 0f, 0f), this._munitionPrefab); // insert player pos and turret rotation data here
-                this._timeToNextShot = 60f / this._fireRateRPM;     // convert rpm to seconds
+                SpawnMunition(pos, Quaternion.Euler(0f, 0f, angle), this._munitionPrefab);
+                this._timeToNextShot = 60f / this._fireRateRPM;     // convert rpm to interval in seconds
             }
-            // fire rate stuff should be handled here
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,7 +68,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (Keyboard.current.spaceKey.isPressed)
         {   
-            testWeapon.OpenFire();
+            testWeapon.OpenFire(Vector2.zero, 0);
         }
         testWeapon.TickDownTimeToNextShot();
     }
