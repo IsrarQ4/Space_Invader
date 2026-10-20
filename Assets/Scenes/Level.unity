@@ -430,23 +430,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1671246197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ff61f2d0120534282ec529c2f6041b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0868a0f1c338e7c4bb5c36a394c2fe8a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
-  _enemyPrefabOne: {fileID: 0}
-  _enemyPrefabTwo: {fileID: 0}
-  _enemyPrefabs:
-  - {fileID: 8013804303117693443, guid: 1cd0a71cdb4d46f4dac06acd79195ace, type: 3}
-  - {fileID: 8013804303117693443, guid: 90897c9b49a9c3a49b7b819f0136348e, type: 3}
-  - {fileID: 8013804303117693443, guid: 78769ebe8cc550645aa1c2782dfdcf14, type: 3}
-  - {fileID: 8013804303117693443, guid: 271edca5a98ba674593a94ffeacb4e44, type: 3}
-  - {fileID: 8013804303117693443, guid: 8a23040b2ccbbec41a920dc30b77f808, type: 3}
-  - {fileID: 8013804303117693443, guid: aa1b126c256d75a4e9bd883fe13159d9, type: 3}
-  _height: 4
-  _width: 8
-  _spawn_interval: 2
-  _enemyMax: 10
-  _enemyOneWeight: 0
+  m_EditorClassIdentifier: Assembly-CSharp::GameManeger
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

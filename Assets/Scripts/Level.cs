@@ -10,7 +10,7 @@ public class Level
 
     public Level(GameObject waveOneEnemyOne, GameObject waveOneEnemyTwo, GameObject waveTwoEnemyOne, GameObject waveTwoEnemyTwo,
         GameObject waveThreeEnemyOne, GameObject waveThreeEnemyTwo,
-        float spawnIntervalMultiplier, float spawnIntervalBase,
+        
         float height, float width, float spawn_interval, int enemyMax, float enemyOneWeight)
     {
         _enemyWaves = new List<EnemyWave> {
@@ -26,6 +26,7 @@ public class Level
         _timer += Time.deltaTime;
         if (_enemyWaves[index].GetEnemiesSpawned() < _enemyWaves[index].GetEnemyMax())
         {
+            
             if (_timer >= _enemyWaves[index].GetSpawnInterval())
             {
                 _enemyWaves[index].SpawnEnemy();
@@ -36,6 +37,7 @@ public class Level
         {
             index += 1;
         }
+
         if (index >= _enemyWaves.Count)
         {
             _isDone = true;

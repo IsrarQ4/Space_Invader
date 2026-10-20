@@ -35,7 +35,7 @@ public class EnemyWave : MonoBehaviour
         }
         else
         {
-            height = _height;
+            _height = height;
         }
         if (width < 0)
         {
@@ -51,7 +51,7 @@ public class EnemyWave : MonoBehaviour
         }
         else
         {
-            spawnInterval = _spawnInterval;
+            _spawnInterval = spawnInterval;
         }
         _enemyMax = enemyMax;
         if (enemyOneWeight < 0)
