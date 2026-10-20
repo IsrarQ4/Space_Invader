@@ -100,11 +100,11 @@ public class Munition : MonoBehaviour
     void Update()
     {
         // i should move all ts to a separate method sometime
-        _lifeTime -= Time.deltaTime;
         if (this._rocketMotor.isBurning == true)
         {
             Burn();
         }
+        this._lifeTime -= Time.deltaTime;
         // Deleting munitions that move out of camera
         float cameraScale = 5f;     // this should be equal to the value inside Size in the camera component in the Main Camera object 
         float destructionOffset = 1f;

@@ -150,9 +150,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   PlayerSelectedWeaponName: 
   WeaponsReference:
-  - _name: test
+  - _name: gun
     _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-    _fireRateRPM: 30
+    _fireRateRPM: 90
+  - _name: machinegun
+    _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+    _fireRateRPM: 90
+  - _name: cannon
+    _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+    _fireRateRPM: 90
+  - _name: rocket
+    _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
+    _fireRateRPM: 90
 --- !u!4 &72379297
 Transform:
   m_ObjectHideFlags: 0

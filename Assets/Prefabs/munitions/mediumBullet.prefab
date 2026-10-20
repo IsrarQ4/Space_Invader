@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7396688767973762889}
   - component: {fileID: 9176582576413045622}
   m_Layer: 0
-  m_Name: Munition
+  m_Name: mediumBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _speed: 3
-  _baseDamage: 0
-  _maxRange: 4
+  _speed: 5
+  _baseDamage: 3
+  _maxRange: 7
   _rocketMotor:
     _rocketEnabled: 0
     _burnTime: 0
