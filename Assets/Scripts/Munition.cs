@@ -28,7 +28,7 @@ public class Munition : MonoBehaviour
         }
         public void TickDownBurnTime()
         {
-            this._burnTime -= Time.fixedDeltaTime;
+            this._burnTime -= Time.deltaTime;
             // Debug.Log("burn time: " + this._burnTime);
         }
         public float GetThrust()

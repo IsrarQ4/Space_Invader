@@ -7,7 +7,6 @@ public class WeaponManager : MonoBehaviour
 {
     // list of different weapon types
     // each weapon can be added to the weapons list below for spawn reference
-    public string PlayerSelectedWeaponName;
     public List<Weapon> WeaponsReference = new List<Weapon>();
 
     [System.Serializable]
@@ -35,13 +34,13 @@ public class WeaponManager : MonoBehaviour
         {
             if (this._timeToNextShot > 0)
             {
-                this._timeToNextShot -= Time.fixedDeltaTime;
+                this._timeToNextShot -= Time.deltaTime;
                 Debug.Log(this._timeToNextShot);
             }
         }
         private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
         {
-            GameObject spawnedMunition = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+            Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
         }
         public void OpenFire(Vector2 pos, float angle)
         // rotation of 0 is straight up
@@ -63,11 +62,11 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.spaceKey.isPressed)
+        if (Keyboard.current.spaceKey.isPressed)    // Move this to player!!
         {   
             GetWeaponFromName("gun").OpenFire(Vector2.zero, 0);
         }
-        foreach (Weapon weapon in WeaponsReference)
+        foreach (Weapon weapon in WeaponsReference) // this too
         {
             weapon.TickDownTimeToNextShot();
         }
