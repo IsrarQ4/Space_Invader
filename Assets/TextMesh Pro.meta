@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro.meta
 guid: f54d1bd14bd3ca042bd867b519fee8cc
+========
+guid: b449256903089df36a7a772deb501817
+>>>>>>>> weapons:Assets/Prefabs/enemies.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

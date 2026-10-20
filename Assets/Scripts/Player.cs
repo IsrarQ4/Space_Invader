@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -39,7 +42,7 @@ public void SelectSpaceship(int shipnumber)
     int speed = _ChosenSpaceship.GetMovementSpeed();
         // Move left
 if (transform.position.x > -8.2f){
-    if (Input.GetKey(KeyCode.A))
+    if (Keyboard.current.aKey.isPressed)
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
@@ -47,7 +50,7 @@ if (transform.position.x > -8.2f){
 
         // Move right
 if (transform.position.x < 8.2f){
-    if (Input.GetKey(KeyCode.D))
+    if (Keyboard.current.dKey.isPressed)
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }

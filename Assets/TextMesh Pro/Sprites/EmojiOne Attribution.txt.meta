@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
 guid: 381dcb09d5029d14897e55f98031fca5
 TextScriptImporter:
+========
+guid: 1cd0a71cdb4d46f4dac06acd79195ace
+PrefabImporter:
+>>>>>>>> weapons:Assets/Prefabs/enemies/Chatgpt.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
