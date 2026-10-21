@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Unity.VectorGraphics;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class GameManeger : MonoBehaviour
@@ -14,7 +17,7 @@ public class GameManeger : MonoBehaviour
         currentLevels.Add(new Level(Resources.Load<GameObject>("Chatgpt"), Resources.Load<GameObject>("Claude"),
             Resources.Load<GameObject>("Chatgpt"), Resources.Load<GameObject>("Claude"),
             Resources.Load<GameObject>("Chatgpt"), Resources.Load<GameObject>("Claude"),
-             3f, 8f, 3f, 5, 0.5f));
+             3f, 8f, 1.5f, 3, 0.5f));
         /*GameObject waveOneEnemyOne, GameObject waveOneEnemyTwo, GameObject waveTwoEnemyOne, GameObject waveTwoEnemyTwo,
         GameObject waveThreeEnemyOne, GameObject waveThreeEnemyTwo,
         
@@ -22,11 +25,11 @@ public class GameManeger : MonoBehaviour
         currentLevels.Add(new Level(Resources.Load<GameObject>("Copilot"), Resources.Load<GameObject>("Deepseek"),
             Resources.Load<GameObject>("Copilot"), Resources.Load<GameObject>("Deepseek"),
             Resources.Load<GameObject>("Copilot"), Resources.Load<GameObject>("Deepseek"),
-             2f, 5f, 2f, 10, 0.5f));
+             2f, 5f, 1f, 5, 0.5f));
         currentLevels.Add(new Level(Resources.Load<GameObject>("Gemini"), Resources.Load<GameObject>("Grok"),
             Resources.Load<GameObject>("Gemini"), Resources.Load<GameObject>("Grok"),
             Resources.Load<GameObject>("Gemini"), Resources.Load<GameObject>("Grok"),
-             1f, 3f, 1f, 20, 0.5f));
+             1f, 3f, 0.5f, 7, 0.5f));
     }
 
     // Update is called once per frame
@@ -39,13 +42,18 @@ public class GameManeger : MonoBehaviour
         {
             if (currentLevels[index].IsDone() == true)
             {
-                index++;    
+                ScoreManager.Instance.AddScore(1000);
+                index++;
                 if (index >= currentLevels.Count)
                 {
-                    Debug.Log("All levels completed!");
+                    SceneManager.LoadScene("Win");
                 }
             }
-            currentLevels[index].Update();
+            else
+            {
+                
+                currentLevels[index].Update();
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ public class Level
         else
         {
             index += 1;
+            ScoreManager.Instance.AddScore(100);
         }
 
         if (index >= _enemyWaves.Count)
@@ -45,6 +46,7 @@ public class Level
     }
     public bool IsDone()
     {
+       
        return _isDone;
     }
 }
