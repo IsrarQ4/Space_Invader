@@ -63,10 +63,10 @@ public class Player : MonoBehaviour
     }
 
     public bool IsShipSelected()
-
     {
         return _shipSelected;
     }
+
     void Start()
     {
         ChosenSpaceship = null;
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         }
     }
 
-public void SelectSpaceship(int shipnumber)
+    public void SelectSpaceship(int shipnumber)
     {
         if (shipnumber == 1)
         {
@@ -101,38 +101,42 @@ public void SelectSpaceship(int shipnumber)
         }
     }
 
-   void Update()
-   {
-    if (ChosenSpaceship == null)
+    void Update()
+    {
+        if (ChosenSpaceship == null)
         {
             return;
         }
 
-    int speed = ChosenSpaceship.GetMovementSpeed();
+        int speed = ChosenSpaceship.GetMovementSpeed();
         // Move left
-if (transform.position.x > -8.2f){
-    if (Keyboard.current.aKey.isPressed)
+        if (transform.position.x > -8.2f)
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            if (Keyboard.current.aKey.isPressed)
+            {
+                transform.Translate(Vector3.left * speed * Time.deltaTime);
+            }
         }
-    }   
 
         // Move right
-if (transform.position.x < 8.2f){
-    if (Keyboard.current.dKey.isPressed)
+        if (transform.position.x < 8.2f)
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            if (Keyboard.current.dKey.isPressed)
+            {
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
+            }
         }
     }
-   }
 
-   public float GetPlayerHealth()
-{
-    if (ChosenSpaceship == null)
-        return 0;
+    public float GetPlayerHealth()
+    {
+        if (ChosenSpaceship == null)
+        {
+            return 0;
+        }
 
-    return ChosenSpaceship.GetPlayerHealth();
-}
+        return ChosenSpaceship.GetPlayerHealth();
+    }
 }
 
 
