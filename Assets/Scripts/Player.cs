@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -63,6 +64,22 @@ public class Player : MonoBehaviour
         public List<WeaponManager.Weapon> GetWeapons()
         {
             return this._weapons;
+        }
+        public int GetWeaponIndexFromName(string name)
+        {
+            int indexToReturn = -1;
+            for (int i=0; i < this._weapons.Count; i++)
+            {
+                if (this._weapons[i].GetWeaponName() == name)
+                {
+                    indexToReturn = i;
+                }
+            }
+            if (indexToReturn == -1)
+            {
+                Debug.LogError("GetWeaponIndexFromName(): Invalid weapon name!");
+            }
+            return indexToReturn;
         }
     }
 
@@ -129,18 +146,17 @@ public class Player : MonoBehaviour
         // primary weapon open fire
         if (Keyboard.current.spaceKey.isPressed)
         {
-            ChosenSpaceship.GetWeapons()[0].OpenFire(transform.position, 0);
-            // maybe have a get weapon index from name function for easier code reading?
+            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("primary")].OpenFire(transform.position, 0);
         }
         // secondary weapon open fire
         if (Keyboard.current.wKey.isPressed)
         {
-            ChosenSpaceship.GetWeapons()[1].OpenFire(transform.position, 0);
-            // maybe have a get weapon index from name function for easier code reading?
+            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("secondary")].OpenFire(transform.position, 0);
             
         }
-        if (Keyboard.current.sKey.isPressed)
+        if (Keyboard.current.sKey.wasPressedThisFrame)
         {
+
             foreach (WeaponManager.Weapon weapon in ChosenSpaceship.GetWeapons())
             {
                 if (weapon.GetWeaponName() == "rocket" && weapon.GetTimeToNextShot() <= 0)
@@ -154,8 +170,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-            // Each ship will have multiple rockets with a long reload time.The is that
-            // the player can press one button to fire any rocket that is done reloading
+
         foreach (WeaponManager.Weapon weapon in ChosenSpaceship.GetWeapons())
         {
             weapon.TickDownTimeToNextShot();
