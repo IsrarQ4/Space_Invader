@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
-    // list of different weapon types
-    // each weapon can be added to the weapons list below for spawn reference
-    public List<Weapon> WeaponsReference = new List<Weapon>();
+    
+    // test list, player and enemies should have their own list
+    // public List<Weapon> TestWeaponsReference = new List<Weapon>();
 
     [System.Serializable]
     public class Weapon
@@ -35,7 +35,6 @@ public class WeaponManager : MonoBehaviour
             if (this._timeToNextShot > 0)
             {
                 this._timeToNextShot -= Time.deltaTime;
-                Debug.Log(this._timeToNextShot);
             }
         }
         private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
@@ -48,7 +47,8 @@ public class WeaponManager : MonoBehaviour
             if (this._timeToNextShot <= 0)
             {
                 SpawnMunition(pos, Quaternion.Euler(0f, 0f, angle), this._munitionPrefab);
-                this._timeToNextShot = 60f / this._fireRateRPM;     // convert rpm to interval in seconds
+                // Debug.Log("weapon is shooting (this message is supposed to be spammed)");
+                this._timeToNextShot = 60f/this._fireRateRPM;     // convert rpm to interval in seconds
             }
         }
     }
@@ -62,31 +62,14 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.spaceKey.isPressed)    // Move this to player!!
-        {   
-            GetWeaponFromName("gun").OpenFire(Vector2.zero, 0);
-        }
-        foreach (Weapon weapon in WeaponsReference) // this too
-        {
-            weapon.TickDownTimeToNextShot();
-        }
-    }
-        
-    public Weapon GetWeaponFromName(string name)
-    {
-        Weapon weapon = null;
-        foreach (Weapon w in WeaponsReference)
-        {
-            if (w.GetWeaponName() == name)
-            {
-                weapon = w;
-            }
-        }
-        if (weapon == null)
-        {
-            Debug.LogError("GetWeaponFromName(): Weapon name not found!");
-        }
-        return weapon;
+        // Debug.Log("time thingy");
+        // if (Keyboard.current.spaceKey.isPressed)    // Move this to player!!
+        // {   
+        //     GetWeaponFromName("rocket").OpenFire(Vector2.zero, 0);
+        // }
+        // foreach (Weapon weapon in TestWeaponsReference) // this too
+        // {
+        //     weapon.TickDownTimeToNextShot();
     }
 
     public Quaternion GetDirectionFromCoords(Vector2 startCoords, Vector2 targetCoords)
