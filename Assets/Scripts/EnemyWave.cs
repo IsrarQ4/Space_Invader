@@ -11,6 +11,7 @@ public class EnemyWave : MonoBehaviour
     [SerializeField] private float _spawn_interval;
     [SerializeField] private int _enemyMax;
     [SerializeField] private float _enemyOneWeight;
+    [SerializeField] private Player _player;
     private int _enemiesSpawned = 0;
     private float _timer;
     public int GetEnemiesSpawned()
@@ -60,6 +61,10 @@ public class EnemyWave : MonoBehaviour
     // Update is called once per frame
     public void SpawnEnemy()
     {
+        if (_player == null || !_player.IsShipSelected())
+        {
+            return;
+        }
         _timer += Time.deltaTime;
         if (_enemiesSpawned < _enemyMax)
         {

@@ -6,7 +6,12 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private Spaceship _ChosenSpaceship;
-   void Start()
+    private bool _shipSelected = false;
+    public bool IsShipSelected()
+    {
+        return _shipSelected;
+    }
+    void Start()
     {
     _ChosenSpaceship = null;
 
@@ -30,6 +35,7 @@ public void SelectSpaceship(int shipnumber)
         {
             _ChosenSpaceship = new Spaceship(15, 100, 2);
         }
+        _shipSelected = true;
     }
 
    void Update()

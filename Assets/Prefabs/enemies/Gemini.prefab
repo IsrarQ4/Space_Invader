@@ -117,6 +117,7 @@ MonoBehaviour:
     _name: this field is not neccessary to fill out
     _munitionPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}
     _fireRateRPM: 90
+    _shootSound: {fileID: 8300000, guid: a4a2ab18cf712a545a98df501cc3a8c0, type: 3}
 --- !u!50 &8791884557569448240
 Rigidbody2D:
   serializedVersion: 5

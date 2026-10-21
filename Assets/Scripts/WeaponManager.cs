@@ -16,6 +16,7 @@ public class WeaponManager : MonoBehaviour
         [SerializeField] private string _name;
         [SerializeField] private GameObject _munitionPrefab;
         [SerializeField] private int _fireRateRPM;
+        [SerializeField] private AudioClip _shootSound;
         private float _timeToNextShot;
         
         public string GetWeaponName()
@@ -48,6 +49,7 @@ public class WeaponManager : MonoBehaviour
             if (this._timeToNextShot <= 0)
             {
                 SpawnMunition(pos, Quaternion.Euler(0f, 0f, angle), this._munitionPrefab);
+                AudioManager.Instance.PlaySFX(_shootSound);
                 this._timeToNextShot = 60f / this._fireRateRPM;     // convert rpm to interval in seconds
             }
         }
