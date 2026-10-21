@@ -7,14 +7,19 @@ public class Player : MonoBehaviour
 {
     private Spaceship _ChosenSpaceship;
     private bool _shipSelected = false;
+    [SerializeField] private GameObject[] _shipVisuals;
     public bool IsShipSelected()
+
     {
         return _shipSelected;
     }
     void Start()
     {
-    _ChosenSpaceship = null;
-
+        _ChosenSpaceship = null;
+        for (int i = 0; i < _shipVisuals.Length; i++)
+        {
+            _shipVisuals[i].SetActive(false);
+        }
     }
 
 public void SelectSpaceship(int shipnumber)
@@ -36,6 +41,10 @@ public void SelectSpaceship(int shipnumber)
             _ChosenSpaceship = new Spaceship(15, 100, 2);
         }
         _shipSelected = true;
+        for (int i = 0; i < _shipVisuals.Length; i++)
+        {
+            _shipVisuals[i].SetActive(i == shipnumber - 1);
+        }
     }
 
    void Update()
