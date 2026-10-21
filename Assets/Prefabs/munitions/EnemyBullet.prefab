@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 361451367657082373}
   - component: {fileID: 1606549947806497934}
   - component: {fileID: 5538679306366111555}
+  - component: {fileID: -1249492522810556431}
   m_Layer: 0
   m_Name: EnemyBullet
   m_TagString: Untagged
@@ -139,3 +140,40 @@ MonoBehaviour:
     _rocketEnabled: 0
     _burnTime: 0
     _thrust: 0
+--- !u!70 &-1249492522810556431
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107827796580562497}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.9, y: 2.22}
+  m_Direction: 0
