@@ -30,6 +30,10 @@ public class WeaponManager : MonoBehaviour
         {
             return this._fireRateRPM;
         }
+        public float GetTimeToNextShot()
+        {
+            return this._timeToNextShot;
+        }
         public void TickDownTimeToNextShot()
         {
             if (this._timeToNextShot > 0)
