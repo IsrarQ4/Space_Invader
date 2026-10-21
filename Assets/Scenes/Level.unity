@@ -1137,6 +1137,10 @@ MonoBehaviour:
   - {fileID: 1518629913}
   - {fileID: 611118503}
   - {fileID: 541497754}
+  _ship1Weapons: []
+  _ship2Weapons: []
+  _ship3Weapons: []
+  _ship4Weapons: []
 --- !u!4 &735329899
 Transform:
   m_ObjectHideFlags: 0
