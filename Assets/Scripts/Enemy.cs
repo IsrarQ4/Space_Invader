@@ -32,7 +32,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _xLimit = 8f;       
-    [SerializeField] private float _minTravel = 2f;     
+    [SerializeField] private float _minTravel = 2f;
+    [SerializeField] private int _scoreValue = 1;
 
     // [Header("Shooting")]
     // [SerializeField] private GameObject _bulletPrefab; 
@@ -150,6 +151,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+        ScoreManager.Instance.AddScore(_scoreValue);
         AudioManager.Instance.PlayEnemyDeath();
     }
 }
