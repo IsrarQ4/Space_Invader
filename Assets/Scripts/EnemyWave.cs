@@ -1,19 +1,16 @@
 using UnityEngine;
 
-
 public class EnemyWave : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefabOne;
-    [SerializeField] private GameObject _enemyPrefabTwo;
-    [SerializeField] private GameObject[] _enemyPrefabs;
-    [SerializeField] private float _height;
-    [SerializeField] private float _width;
-    [SerializeField] private float _spawn_interval;
-    [SerializeField] private int _enemyMax;
-    [SerializeField] private float _enemyOneWeight;
-    [SerializeField] private Player _player;
+    private GameObject _enemyPrefabOne;
+    private GameObject _enemyPrefabTwo;
+    private float _height;
+    private float _width;
+    private float _spawnInterval;
+    private int _enemyMax;
+    private float _enemyOneWeight;
     private int _enemiesSpawned = 0;
-    private float _timer;
+    
     public int GetEnemiesSpawned()
     {
         return _enemiesSpawned;
@@ -22,19 +19,39 @@ public class EnemyWave : MonoBehaviour
     {
         return _enemyMax;
     }   
-    public EnemyWave(GameObject enemyPrefabOne, GameObject enemyPrefabTwo, float height, float width, float spawn_interval, int enemyMax, float enemyOneWeight)
+    public float GetSpawnInterval()
+    {
+        return _spawnInterval;
+    }
+    public EnemyWave(GameObject enemyPrefabOne, GameObject enemyPrefabTwo, float height, float width, float spawnInterval, int enemyMax, float enemyOneWeight)
     {
         _enemyPrefabOne = enemyPrefabOne;
         _enemyPrefabTwo = enemyPrefabTwo;
         _height = height;
         _width = width;
-        if (spawn_interval < 0)
-        {
-            spawn_interval = 0;
+        if (height < 0)
+                    {
+            _height = 0f;
         }
         else
         {
-            _spawn_interval = spawn_interval;
+            _height = height;
+        }
+        if (width < 0)
+        {
+            _width = 0f;
+        }
+        else
+        {
+            _width = width;
+        }
+        if (_spawnInterval < 0)
+        {
+            _spawnInterval = 0f;
+        }
+        else
+        {
+            _spawnInterval = spawnInterval;
         }
         _enemyMax = enemyMax;
         if (enemyOneWeight < 0)
@@ -51,34 +68,28 @@ public class EnemyWave : MonoBehaviour
         }
             
     }   
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Update()
-    {
-        SpawnEnemy();
-        
-    }
 
     // Update is called once per frame
     public void SpawnEnemy()
     {
-        if (_player == null || !_player.IsShipSelected())
-        {
-            return;
-        }
-        _timer += Time.deltaTime;
-        if (_enemiesSpawned < _enemyMax)
-        {
+        
+       
 
-            if (_timer >= _spawn_interval)
-            {
                 float randomX = Random.Range(-_width, _width);
                 float randomY = Random.Range(0, _height);
                 Vector2 spawnPosition = new Vector2(randomX, randomY);
-                int randomIndex = Random.Range(0, _enemyPrefabs.Length);
-                Instantiate(_enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
-                _timer = 0;
+                int randomEnemy = Random.Range(0, 100);
+                if (randomEnemy <= _enemyOneWeight * 100)
+                {
+                    Instantiate(_enemyPrefabOne, spawnPosition, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(_enemyPrefabTwo, spawnPosition, Quaternion.identity);
+                }
+                
                 _enemiesSpawned++;
-            }
-        }
+            
+        
     }
 }
