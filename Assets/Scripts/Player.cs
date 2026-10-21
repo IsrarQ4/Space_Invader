@@ -1,136 +1,120 @@
-using System;
 using System.Collections.Generic;
-using NUnit.Framework.Internal;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Spaceship _spaceship;
-    [SerializeField] private PlayerWeaponsReference playerWeaponsReference;
+    private Spaceship _ChosenSpaceship;
+    private bool _shipSelected = false;
+    [SerializeField] private GameObject[] _shipVisuals;
+    public bool IsShipSelected()
 
-    private void Start()
     {
-        _spaceship = null;
+        return _shipSelected;
+    }
+    void Start()
+    {
+        _ChosenSpaceship = null;
+        for (int i = 0; i < _shipVisuals.Length; i++)
+        {
+            _shipVisuals[i].SetActive(false);
+        }
     }
 
-    public void SelectSpaceship(int shipnumber)
+public void SelectSpaceship(int shipnumber)
     {
         if (shipnumber == 1)
         {
-            _spaceship = new Spaceship(10, 120, playerWeaponsReference.GetShip1Weapons());
-            Debug.Log(_spaceship.GetWeapons()[0].GetWeaponName());
+            _ChosenSpaceship = new Spaceship(10, 120, 3);
         }
-
         if (shipnumber == 2)
         {
-            _spaceship = new Spaceship(20, 70, playerWeaponsReference.GetShip2Weapons());
+            _ChosenSpaceship = new Spaceship(20, 70, 4);
         }
-
         if (shipnumber == 3)
         {
-            _spaceship = new Spaceship(5, 150, playerWeaponsReference.GetShip3Weapons());
+            _ChosenSpaceship = new Spaceship(5, 150, 5);
         }
-
         if (shipnumber == 4)
         {
-            _spaceship = new Spaceship(15, 100, playerWeaponsReference.GetShip4Weapons());
+            _ChosenSpaceship = new Spaceship(15, 100, 2);
+        }
+        _shipSelected = true;
+        for (int i = 0; i < _shipVisuals.Length; i++)
+        {
+            _shipVisuals[i].SetActive(i == shipnumber - 1);
         }
     }
 
-    private void Update()
-    {
-        if (_spaceship == null)
+   void Update()
+   {
+    if (_ChosenSpaceship == null)
         {
             return;
         }
 
-        int speed = _spaceship.Get_movementSpeed();
-
+    int speed = _ChosenSpaceship.GetMovementSpeed();
         // Move left
-        if (transform.position.x > -8.2f)
+if (transform.position.x > -8.2f){
+    if (Keyboard.current.aKey.isPressed)
         {
-            if (Keyboard.current.aKey.isPressed)
-            {
-                transform.Translate(Vector2.left * speed * Time.deltaTime);
-            }
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
+    }   
 
         // Move right
-        if (transform.position.x < 8.2f)
+if (transform.position.x < 8.2f){
+    if (Keyboard.current.dKey.isPressed)
         {
-            if (Keyboard.current.dKey.isPressed)
-            {
-                transform.Translate(Vector2.right * speed * Time.deltaTime);
-            }
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
+    }
+   }
 
-        // Shoot
-        if (Keyboard.current.spaceKey.isPressed)
-        {   
-            _spaceship.GetWeapons()[0].OpenFire(transform.position, 0f);
-            
-        }
-        // not all spaceships will have secondary weapons
-        if (Keyboard.current.wKey.isPressed)
-        {
-        }
-        if (Keyboard.current.sKey.isPressed)
-        {   
-            // foreach Weapon rocket in _spaceship.GetWeapons()[]
-            // {if (rocket.GetWeaponName() == rocket || rocket.GetTimeToNextShot() <= 0 {rocket.OpenFire; break;}
-            // else {continue; or whatever the word was to go to the next item in the list}
-            //
-            // Explanation for the above comments: each ship will have multiple rockets with a long reload time.
-            // The idea is that player can press one button to fire any rocket that is done reloading
-        }
-        foreach (WeaponManager.Weapon weapon in this._spaceship.GetWeapons())
-        {
-            weapon.TickDownTimeToNextShot();
-        }
+   public float GetPlayerHealth()
+{
+    if (_ChosenSpaceship == null)
+        return 0;
+
+    return _ChosenSpaceship.GetPlayerHealth();
+}
+}
+
+public class Spaceship
+    {
+    private int _movementspeed ;
+   private float _player_health;
+   private int _bullet_speed;
+
+   public Spaceship(int movespeed, int playerhealth, int bulletspeed){
+   
+   this._movementspeed = movespeed;
+   this._player_health = playerhealth;
+   this._bullet_speed = bulletspeed;
+   }
+
+    public int GetMovementSpeed()
+    {
+        return _movementspeed;
     }
 
     public float GetPlayerHealth()
     {
-        if (_spaceship == null)
-        {
-            return 0;
-        }
-
-        return _spaceship.GetPlayerHealth();
+        return _player_health;
     }
-
-    public class Spaceship
+    public float GetMaxHealth()
     {
-        private int _movementSpeed;
-        private float PlayerHealth;
-        private List<WeaponManager.Weapon> _weapons = new List<WeaponManager.Weapon>();
-
-        public Spaceship(int movespeed, int playerhealth, List<WeaponManager.Weapon> Weapons)
-        {
-            _movementSpeed = movespeed;
-            PlayerHealth = playerhealth;
-            this._weapons = Weapons;
-        }
-
-        public int Get_movementSpeed()
-        {
-            return _movementSpeed;
-        }
-
-        public float GetPlayerHealth()
-        {
-            return PlayerHealth;
-        }
-
-        public float GetMaxHealth()
-        {
-            return PlayerHealth;
-        }
-        public List<WeaponManager.Weapon> GetWeapons()
-        {
-            return this._weapons;
-        }
+        return _player_health;
     }
-}
+
+    public int GetBulletSpeed()
+    {
+        return _bullet_speed;
+    }
+    }
+  
+
+  
+
+
