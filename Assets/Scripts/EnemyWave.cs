@@ -39,11 +39,11 @@ public class EnemyWave : MonoBehaviour
         }
         if (width < 0)
         {
-            _height = 0f;
+            _width = 0f;
         }
         else
         {
-            width = _height;
+            _width = width;
         }
         if (_spawnInterval < 0)
         {
@@ -73,8 +73,7 @@ public class EnemyWave : MonoBehaviour
     public void SpawnEnemy()
     {
         
-        if (_enemiesSpawned < _enemyMax)
-        {
+       
 
                 float randomX = Random.Range(-_width, _width);
                 float randomY = Random.Range(0, _height);
@@ -91,6 +90,6 @@ public class EnemyWave : MonoBehaviour
                 
                 _enemiesSpawned++;
             
-        }
+        
     }
 }
