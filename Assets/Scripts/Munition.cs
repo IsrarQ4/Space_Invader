@@ -7,6 +7,7 @@ using UnityEngine;
 public class Munition : MonoBehaviour
 {
     private Rigidbody2D _rb;
+    [SerializeField] private bool _isEnemyBullet;
     [SerializeField] private float _speed;
     [SerializeField] private float _baseDamage;
     [SerializeField] private float _maxRange;
@@ -51,10 +52,10 @@ public class Munition : MonoBehaviour
     {
         if (_rocketMotor.GetBurnTime() > 0f && _rocketMotor.GetRocketEnabled() == true)
         {
-            this._speed += this._rocketMotor.GetThrust();
+            this._speed += this._rocketMotor.GetThrust() / (1/Time.smoothDeltaTime);
             this._rb.linearVelocity = transform.up * this._speed;
             _rocketMotor.TickDownBurnTime();
-            // Debug.Log(this._speed);
+            Debug.Log(this._speed);
             // rocket graphic effects
         }
         else
@@ -75,6 +76,10 @@ public class Munition : MonoBehaviour
     public float GetRemainingLifeTime()
     {
         return this._lifeTime;
+    }
+    public bool getIsEnemy()
+    {
+        return this._isEnemyBullet;
     }
 
     void Start() // i guess this is the Munition constructor now
@@ -104,6 +109,7 @@ public class Munition : MonoBehaviour
         {
             Burn();
         }
+
         this._lifeTime -= Time.deltaTime;
         // Deleting munitions that move out of camera
         float cameraScale = 5f;     // this should be equal to the value inside Size in the camera component in the Main Camera object 
