@@ -6,14 +6,21 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private Spaceship _ChosenSpaceship;
+    public SpriteRenderer shipRenderer;
+    public Sprite[] shipSprites;
    void Start()
     {
     _ChosenSpaceship = null;
+
+    shipRenderer.enabled = false;
+
 
     }
 
 public void SelectSpaceship(int shipnumber)
     {
+        Debug.Log("Ship button clicked: " + shipnumber);
+
         if (shipnumber == 1)
         {
             _ChosenSpaceship = new Spaceship(10, 120, 3);
@@ -30,6 +37,9 @@ public void SelectSpaceship(int shipnumber)
         {
             _ChosenSpaceship = new Spaceship(15, 100, 2);
         }
+
+        shipRenderer.sprite = shipSprites[shipnumber - 1];
+        shipRenderer.enabled = true;
     }
 
    void Update()
