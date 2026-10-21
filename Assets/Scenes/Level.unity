@@ -1139,7 +1139,7 @@ MonoBehaviour:
   - {fileID: 541497754}
   _ship1Weapons:
   - _name: primary
-    _munitionPrefab: {fileID: 6376883205321382951, guid: b6c9fbbb9e8d364d99448992c717f4a3, type: 3}
+    _munitionPrefab: {fileID: 6376883205321382951, guid: c158321ce9d372d93a9a346979f13250, type: 3}
     _fireRateRPM: 120
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
