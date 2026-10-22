@@ -4,11 +4,14 @@ using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public Spaceship ChosenSpaceship { get; private set; }
     private bool _shipSelected = false;
+    private bool _isDead = false;
+    [SerializeField] private float _deathScreenDelay = 1.5f;
     [SerializeField] private GameObject[] _shipVisuals;
     [Header("Israr please just use prefabs 😭😭 i hate having to write bum code on top of your bum code")]
     [Header("no offense meant, but if you keep coding like this you will continue to cause your teammates headaches")]
@@ -134,7 +137,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (ChosenSpaceship == null)
+        if (ChosenSpaceship == null || _isDead)
         {
             return;
         }
@@ -188,18 +191,45 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (_isDead)
+        {
+            return;
+        }
         Munition munition = other.GetComponent<Munition>();
-        if(munition == null)
+        if (munition == null)
         {
             return;
         }
         float damage = munition.GetBaseDamage();
         Debug.Log("player was hit");
+        // only enemy bullets hurt the player
         if (munition.IsEnemyMunition == true)
         {
             this.ChosenSpaceship.TakeDamage(damage);
+            AudioManager.Instance.PlayHit();
+            munition.DestroyOnHit();    // the bullet is used up when it hits
             Debug.Log("player was hit by enemy");
+
+            if (this.ChosenSpaceship.GetPlayerHealth() <= 0)
+            {
+                Die();
+            }
         }
+    }
+    private void Die()
+    {
+        _isDead = true;
+        AudioManager.Instance.PlayGameOver();
+        Invoke(nameof(LoadDeathScreen), _deathScreenDelay);
+    }
+    public void DestroyOnHit()
+    {
+        Destroy(gameObject);
+    }
+
+    private void LoadDeathScreen()
+    {
+        SceneManager.LoadScene("Death");
     }
 
     public float GetPlayerHealth()

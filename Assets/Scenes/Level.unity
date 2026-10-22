@@ -704,7 +704,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.40176702, y: 0.40176702, z: 0.40176702}
+  m_LocalScale: {x: 0.3110882, y: 0.3110882, z: 0.3110882}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 735329899}
@@ -874,7 +874,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.40886247, y: 0.40886247, z: 0.40886247}
+  m_LocalScale: {x: 0.2833417, y: 0.2833417, z: 0.2833417}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 735329899}
@@ -1133,6 +1133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8b98539ca2c463db43d063721b85a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _deathScreenDelay: 1.5
   _shipVisuals:
   - {fileID: 1353264726}
   - {fileID: 1518629913}
@@ -1158,7 +1159,7 @@ MonoBehaviour:
   _ship3Weapons:
   - _name: primary
     _munitionPrefab: {fileID: 6376883205321382951, guid: b6c9fbbb9e8d364d99448992c717f4a3, type: 3}
-    _fireRateRPM: 20
+    _fireRateRPM: 30
   - _name: secondary
     _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
     _fireRateRPM: 600
@@ -1177,7 +1178,7 @@ MonoBehaviour:
   _ship4Weapons:
   - _name: primary
     _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-    _fireRateRPM: 600
+    _fireRateRPM: 300
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
     _fireRateRPM: 12
@@ -1558,7 +1559,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 982781275}
-  - component: {fileID: 982781274}
   - component: {fileID: 982781276}
   m_Layer: 0
   m_Name: EnemyManager
@@ -1567,18 +1567,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &982781274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 982781273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ff61f2d0120534282ec529c2f6041b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
 --- !u!4 &982781275
 Transform:
   m_ObjectHideFlags: 0
@@ -2336,7 +2324,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7276042, y: 0.7276042, z: 0.7276042}
+  m_LocalScale: {x: 0.5522516, y: 0.5522516, z: 0.5522516}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 735329899}
@@ -2564,7 +2552,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4241, y: 0.4241, z: 0.4241}
+  m_LocalScale: {x: 0.31828707, y: 0.31828707, z: 0.31828707}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 735329899}

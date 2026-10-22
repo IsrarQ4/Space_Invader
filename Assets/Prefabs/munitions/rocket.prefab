@@ -133,13 +133,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _isEnemyBullet: 0
   _speed: 0
-  _baseDamage: 4
+  _baseDamage: 7
+  _pennetrationLifeTime: 0.1
+  _explosionRadius: 2
+  _explosionSprite: {fileID: -8092295105046505211, guid: ec8d769fc2dc33000986a20e8fa0e6f9, type: 3}
   _maxRange: -1
   _rocketMotor:
     _rocketEnabled: 1
-    _burnTime: 3
+    _burnTime: 2
     _thrust: 3.33
 --- !u!70 &-1800510992538555040
 CapsuleCollider2D:

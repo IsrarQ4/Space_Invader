@@ -1,5 +1,5 @@
 using System;
-using System.Numerics;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -10,6 +10,14 @@ public class Munition : MonoBehaviour
     [System.NonSerialized] public bool IsEnemyMunition;
     [SerializeField] private float _speed;
     [SerializeField] private float _baseDamage;
+    private float _lifeTime;
+    [Header("should be zero for non-pennetrating munitions")]
+    [SerializeField] private float _pennetrationLifeTime;
+    [Header("set to zero to disable explosion")]
+    [SerializeField] private float _explosionRadius;
+    [SerializeField] private Sprite _explosionSprite;
+    private bool _hasHitOnce;
+    private bool _hasExploded;
     [SerializeField] private float _maxRange;
     [SerializeField] private RocketMotor _rocketMotor = new RocketMotor();
     [System.Serializable] private class RocketMotor
@@ -55,7 +63,7 @@ public class Munition : MonoBehaviour
             this._speed += this._rocketMotor.GetThrust() / (1/Time.smoothDeltaTime);
             this._rb.linearVelocity = transform.up * this._speed;
             _rocketMotor.TickDownBurnTime();
-            Debug.Log(this._speed);
+            // Debug.Log(this._speed);
             // rocket graphic effects
         }
         else
@@ -65,8 +73,7 @@ public class Munition : MonoBehaviour
         }
 
     }
-    private float _lifeTime;
-    
+
     private bool _damageEnabled;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float GetMaxRange()
@@ -81,11 +88,69 @@ public class Munition : MonoBehaviour
     {
         return this._baseDamage;
     }
+    public void DestroyOnHit()
+    {
+        if (this._hasHitOnce == false)
+        {
+            Explode();
+            this._hasHitOnce = true;
+            this._lifeTime = this._pennetrationLifeTime;
+        }
+
+    }
+
+    public void Explode()
+    {
+        if (this._hasExploded || this._explosionRadius <= 0f)
+        {
+            return;
+        }
+
+        this._hasExploded = true;
+        HashSet<Enemy> damagedEnemies = new HashSet<Enemy>();
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, this._explosionRadius);
+        foreach (Collider2D hit in hits)
+        {
+            Enemy enemy = hit.GetComponentInParent<Enemy>();
+            if (enemy != null && damagedEnemies.Add(enemy))
+            {
+                if (this.IsEnemyMunition == false)
+                    {
+                        enemy.TakeDamage(this._baseDamage);
+                    }
+            }
+        }
+
+        if (this._explosionSprite != null)
+        {
+            GameObject explosion = new GameObject("Munition Explosion");
+            explosion.transform.position = transform.position;
+            SpriteRenderer explosionRenderer = explosion.AddComponent<SpriteRenderer>();
+            explosionRenderer.sprite = this._explosionSprite;
+
+            SpriteRenderer munitionRenderer = GetComponent<SpriteRenderer>();
+            if (munitionRenderer != null)
+            {
+                explosionRenderer.sortingLayerID = munitionRenderer.sortingLayerID;
+                explosionRenderer.sortingOrder = munitionRenderer.sortingOrder + 1;
+            }
+
+            Vector2 spriteSize = this._explosionSprite.bounds.size;
+            float maxSpriteDimension = Mathf.Max(spriteSize.x, spriteSize.y);
+            if (maxSpriteDimension > 0f)
+            {
+                float diameter = this._explosionRadius * 2f;
+                explosion.transform.localScale = Vector3.one * (diameter / maxSpriteDimension);
+            }
+            Destroy(explosion, 0.2f);
+        }
+    }
 
     void Start() // i guess this is the Munition constructor now
     {   
         // TO-DO: validate properties _maxRange and RocketMotor stuff
         this._damageEnabled = true;
+        this._hasHitOnce = false;
         this._rb = GetComponent<Rigidbody2D>();
 
 
@@ -157,21 +222,6 @@ public class Munition : MonoBehaviour
         float timeToMaxRange = targetRange / speed;
         return timeToMaxRange;
     }
-    //setter and getter for the dmg bc i need for enemys
-    // No you dont, just make a new munition prefab and attach it inside the
-    // muntionprefab field of the serialized Weapon object of the enemy
-    
-    // public void SetDamage(float damage)
-    // {
-    //     _baseDamage = damage;
-    // }
-
-    public float GetDamage()
-    {
-        return _baseDamage;
-    }
-    // hi kids remember to document the shit out of your code because people dont want spend hours to translating your sphagetti
-    // also text retains info better than brain
 }
 
 
