@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   CanKillMunitions: 1
   _speed: 4
-  _baseDamage: 3
+  _baseDamage: 5
   _pennetrationLifeTime: 0
   _explosionRadius: 0
   _explosionSprite: {fileID: 0}
