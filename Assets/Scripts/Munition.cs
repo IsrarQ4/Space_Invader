@@ -8,6 +8,7 @@ public class Munition : MonoBehaviour
 {
     private Rigidbody2D _rb;
     [System.NonSerialized] public bool IsEnemyMunition;
+    [SerializeField] private bool CanKillMunitions;
     [SerializeField] private float _speed;
     [SerializeField] private float _baseDamage;
     private float _lifeTime;
@@ -19,6 +20,8 @@ public class Munition : MonoBehaviour
     private bool _hasHitOnce;
     private bool _hasExploded;
     [SerializeField] private float _maxRange;
+    [SerializeField] private ParticleSystem _burnParticlePrefab;
+    private ParticleSystem _burnParticles;
     [SerializeField] private RocketMotor _rocketMotor = new RocketMotor();
     [System.Serializable] private class RocketMotor
     {   
@@ -63,12 +66,24 @@ public class Munition : MonoBehaviour
             this._speed += this._rocketMotor.GetThrust() / (1/Time.smoothDeltaTime);
             this._rb.linearVelocity = transform.up * this._speed;
             _rocketMotor.TickDownBurnTime();
-            // Debug.Log(this._speed);
-            // rocket graphic effects
+            if (_burnParticles == null && _burnParticlePrefab != null)
+            {
+                _burnParticles = Instantiate(_burnParticlePrefab, transform);
+                _burnParticles.transform.localPosition = Vector3.zero;
+            }
+
+            if (_burnParticles != null && !_burnParticles.isPlaying)
+            {
+                _burnParticles.Play();
+            }
         }
         else
         {
             _rocketMotor.isBurning = false;
+            if (_burnParticles != null && _burnParticles.isEmitting)
+            {
+                _burnParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
             // Debug.Log("Stopped burning (this should only log one message)");
         }
 
@@ -196,6 +211,21 @@ public class Munition : MonoBehaviour
             || transform.position.x >= 16f/9f * cameraScale + destructionOffset
             || transform.position.x <= -(16f/9f * cameraScale + destructionOffset))
         {Destroy(gameObject);}
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!CanKillMunitions)
+        {
+            return;
+        }
+
+        Munition otherMunition = other.GetComponentInParent<Munition>();
+        if (otherMunition != null && IsEnemyMunition != otherMunition.IsEnemyMunition)
+        {
+            Destroy(otherMunition.gameObject);
+            DestroyOnHit();
+        }
     }
 
     private float calculateTimeToMaxRange()

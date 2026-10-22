@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
         }
         if (shipnumber == 3)
         {
-            ChosenSpaceship = new Spaceship(5, 150, GetShip3Weapons());
+            ChosenSpaceship = new Spaceship(5, 180, GetShip3Weapons());
         }
         if (shipnumber == 4)
         {

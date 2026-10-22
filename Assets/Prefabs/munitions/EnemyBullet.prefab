@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Munition
+  CanKillMunitions: 0
   _speed: 5
   _baseDamage: 5
   _pennetrationLifeTime: 0

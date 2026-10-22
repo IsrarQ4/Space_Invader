@@ -1191,6 +1191,12 @@ MonoBehaviour:
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
     _fireRateRPM: 12
+  - _name: rocket
+    _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
+    _fireRateRPM: 12
+  - _name: rocket
+    _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
+    _fireRateRPM: 12
 --- !u!4 &735329899
 Transform:
   m_ObjectHideFlags: 0

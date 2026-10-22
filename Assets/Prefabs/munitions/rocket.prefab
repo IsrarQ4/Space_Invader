@@ -133,16 +133,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _speed: 0
+  CanKillMunitions: 0
+  _speed: 0.4
   _baseDamage: 7
   _pennetrationLifeTime: 0.1
   _explosionRadius: 2
   _explosionSprite: {fileID: -8092295105046505211, guid: ec8d769fc2dc33000986a20e8fa0e6f9, type: 3}
   _maxRange: -1
+  _burnParticlePrefab: {fileID: 5375046218184476348, guid: 7c2030782b8865e6d87c4e325f0e7575, type: 3}
   _rocketMotor:
     _rocketEnabled: 1
-    _burnTime: 2
-    _thrust: 3.33
+    _burnTime: 1
+    _thrust: 6
 --- !u!70 &-1800510992538555040
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
