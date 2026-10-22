@@ -6,20 +6,19 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private Spaceship _ChosenSpaceship;
-    public SpriteRenderer shipRenderer;
     public Sprite[] shipSprites;
+    private bool _shipSelect = false;
    void Start()
     {
     _ChosenSpaceship = null;
 
     shipRenderer.enabled = false;
-
+    
 
     }
 
 public void SelectSpaceship(int shipnumber)
     {
-        Debug.Log("Ship button clicked: " + shipnumber);
 
         if (shipnumber == 1)
         {
@@ -106,6 +105,11 @@ public class Spaceship
     public int GetBulletSpeed()
     {
         return _bullet_speed;
+    }
+
+    public bool GetShipSelect()
+    {
+        return _shipSelect;
     }
     }
   
