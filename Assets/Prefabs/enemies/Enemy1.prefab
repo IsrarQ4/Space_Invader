@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 239511416383867296}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
     MoveSpeed: 2
   _xLimit: 8
   _minTravel: 2
+  _scoreValue: 1
   _weapon:
     _name: this field is not neccessary to fill out
     _munitionPrefab: {fileID: 2107827796580562497, guid: ec6dc64407b90ba4aad39c62059f7673, type: 3}

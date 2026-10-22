@@ -7,7 +7,7 @@ using UnityEngine;
 public class Munition : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    [SerializeField] private bool _isEnemyBullet;
+    [System.NonSerialized] public bool IsEnemyMunition;
     [SerializeField] private float _speed;
     [SerializeField] private float _baseDamage;
     [SerializeField] private float _maxRange;
@@ -77,9 +77,9 @@ public class Munition : MonoBehaviour
     {
         return this._lifeTime;
     }
-    public bool getIsEnemy()
+    public float GetBaseDamage()
     {
-        return this._isEnemyBullet;
+        return this._baseDamage;
     }
 
     void Start() // i guess this is the Munition constructor now
