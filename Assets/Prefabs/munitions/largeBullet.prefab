@@ -133,9 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee073e9afd65ae96b17960c0adb818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _speed: 12
-  _baseDamage: 8
-  _pennetrationLifeTime: 0.2
+  _speed: 14
+  _baseDamage: 10
+  _pennetrationLifeTime: 0.4
+  _explosionRadius: 1
+  _explosionSprite: {fileID: -8092295105046505211, guid: ec8d769fc2dc33000986a20e8fa0e6f9, type: 3}
   _maxRange: 999
   _rocketMotor:
     _rocketEnabled: 0

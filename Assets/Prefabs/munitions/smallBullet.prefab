@@ -134,9 +134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _speed: 3
-  _baseDamage: 1
-  _pennetrationLifeTime: 0.1
-  _maxRange: 3
+  _baseDamage: 3
+  _pennetrationLifeTime: 0
+  _explosionRadius: 0
+  _explosionSprite: {fileID: 0}
+  _maxRange: 4
   _rocketMotor:
     _rocketEnabled: 0
     _burnTime: 0

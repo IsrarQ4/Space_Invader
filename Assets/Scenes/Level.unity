@@ -1142,7 +1142,7 @@ MonoBehaviour:
   _ship1Weapons:
   - _name: primary
     _munitionPrefab: {fileID: 6376883205321382951, guid: c158321ce9d372d93a9a346979f13250, type: 3}
-    _fireRateRPM: 120
+    _fireRateRPM: 180
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
     _fireRateRPM: 12
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   _ship2Weapons:
   - _name: primary
     _munitionPrefab: {fileID: 6376883205321382951, guid: c158321ce9d372d93a9a346979f13250, type: 3}
-    _fireRateRPM: 300
+    _fireRateRPM: 360
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
     _fireRateRPM: 12
@@ -1178,7 +1178,10 @@ MonoBehaviour:
   _ship4Weapons:
   - _name: primary
     _munitionPrefab: {fileID: 6376883205321382951, guid: 669645d27edbec4c0aa7d6a801cbd7e8, type: 3}
-    _fireRateRPM: 300
+    _fireRateRPM: 540
+  - _name: rocket
+    _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
+    _fireRateRPM: 12
   - _name: rocket
     _munitionPrefab: {fileID: 6376883205321382951, guid: c64f16d173794a52ea48b5fd35fd0228, type: 3}
     _fireRateRPM: 12
@@ -3390,6 +3393,63 @@ MonoBehaviour:
   player: {fileID: 735329898}
   bar: {fileID: 1932749537}
   healthText: {fileID: 822503703}
+--- !u!1001 &4843997676641143433
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406904541254363946, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149490131062288687, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
+      propertyPath: m_Name
+      value: unused
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee9a22a0c14d2ecbdafe01fff8b2e80b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3403,3 +3463,4 @@ SceneRoots:
   - {fileID: 1551903608}
   - {fileID: 735329899}
   - {fileID: 1841473293}
+  - {fileID: 4843997676641143433}

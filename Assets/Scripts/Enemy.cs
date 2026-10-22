@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _xLimit = 8f;       
+    [SerializeField] private float _yLimit = 4f;
     [SerializeField] private float _minTravel = 2f;
     [SerializeField] private int _scoreValue = 1;
 
@@ -40,17 +41,23 @@ public class Enemy : MonoBehaviour
 
     [Header("shooty pew pew")]
     [SerializeField] private WeaponManager.Weapon _weapon;
+    [SerializeField] private float _shootXDistance = 2f;
 
+    private Player _player;
     private float _currentHealth;
     private float _targetX;
+    private float _targetY;
     // private float _shootTimer;
     // private string ENEMY_TAG = "Enemy";
     // private string PLAYER_MUNITION_TAG = "PlayerMunition";
 
     void Start()
     {
+        _player = FindFirstObjectByType<Player>();
         _currentHealth = _stats.MaxHealth;
         PickNewTargetX();
+        // PickNewTargetY();
+        _targetY = 5f;
         // the first shot is random bc if they will all shoot at once and that would be weird
         // _shootTimer = Random.Range(0f, GetShootDelay());
     }
@@ -58,7 +65,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
-        if (true)   //add more shooting conditions to make shots less monotonouos, eg if x pos matches player x pos, or maybe bursts of suppresive fire to cut off movement range. 
+        MoveY();
+        float distanceDownFromTop = 5f - transform.position.y;
+        bool inThirdQuarterFromTop = distanceDownFromTop >= _yLimit * 0.5f
+            && distanceDownFromTop <= _yLimit * 0.75f;
+        bool withinPlayerXDistance = _player != null
+            && Mathf.Abs(transform.position.x - _player.transform.position.x) <= _shootXDistance;
+
+        if (withinPlayerXDistance || inThirdQuarterFromTop)
         {
             _weapon.OpenFire(transform.position, 180f, true);
         }
@@ -131,6 +145,32 @@ public class Enemy : MonoBehaviour
             }
         }
         _targetX = newX;
+    }
+    // moves towards target y once it reaches it goes to the new target y
+    private void MoveY()
+    {
+        Vector2 pos = transform.position;       // no need to use vector3 for 2d position
+        pos.y = Mathf.MoveTowards(pos.y, _targetY, _stats.MoveSpeed * Time.deltaTime);
+        // pos.y = Mathf.Clamp(pos.y, 5f - _yLimit, 5f);
+        transform.position = pos;
+
+        if (Mathf.Approximately(pos.y, _targetY))
+        {
+            PickNewTargetY();
+        }
+    }
+
+    //picks the new target y and makes sure its not too close so it doesnt look goofy
+    private void PickNewTargetY()
+    {
+        float newY = transform.position.y;
+        newY = Random.Range(5f -_yLimit, 5f);
+        if (Mathf.Abs(newY - transform.position.y) >= _minTravel)
+        {
+            newY = transform.position.y;
+        }
+
+        _targetY = newY;
     }
 
     //use this for whne the player hits the enemy

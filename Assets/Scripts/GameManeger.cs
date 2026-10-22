@@ -11,7 +11,7 @@ public class GameManeger : MonoBehaviour
     private List<Level> currentLevels = new List<Level>();
     private int index = 0;
     [SerializeField] private Player _player;
-    private const int WIN_SCORE = 3945;
+    private const int WIN_SCORE = 5000;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,12 +51,13 @@ public class GameManeger : MonoBehaviour
         // all levels have finished spawning: wait for the player to defeat the rest
         if (index >= currentLevels.Count)
         {
+            SceneManager.LoadScene("Win");
             return;
         }
 
         if (currentLevels[index].IsDone() == true)
         {
-            ScoreManager.Instance.AddScore(1000);   
+            ScoreManager.Instance.AddScore(200);   
             index++;
         }
         else
