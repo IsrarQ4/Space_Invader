@@ -56,6 +56,16 @@ public class Player : MonoBehaviour
         {
             return _playerHealth;
         }
+        public void TakeDamage(float damage)
+        {
+            this._playerHealth -= damage;
+            if (this._playerHealth <= 0)
+            {
+                this._playerHealth = 0;
+                Debug.Log("player has died, do the death screen");
+                // death screen
+            }
+        }
 
         public float GetMaxHealth()
         {
@@ -146,12 +156,12 @@ public class Player : MonoBehaviour
         // primary weapon open fire
         if (Keyboard.current.spaceKey.isPressed)
         {
-            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("primary")].OpenFire(transform.position, 0);
+            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("primary")].OpenFire(transform.position, 0, false);
         }
         // secondary weapon open fire
         if (Keyboard.current.wKey.isPressed)
         {
-            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("secondary")].OpenFire(transform.position, 0);
+            ChosenSpaceship.GetWeapons()[ChosenSpaceship.GetWeaponIndexFromName("secondary")].OpenFire(transform.position, 0, false);
             
         }
         if (Keyboard.current.sKey.wasPressedThisFrame)
@@ -161,7 +171,7 @@ public class Player : MonoBehaviour
             {
                 if (weapon.GetWeaponName() == "rocket" && weapon.GetTimeToNextShot() <= 0)
                 {
-                    weapon.OpenFire(transform.position, 0);
+                    weapon.OpenFire(transform.position, 0, false);
                     break;
                 }
                 else
@@ -174,6 +184,21 @@ public class Player : MonoBehaviour
         foreach (WeaponManager.Weapon weapon in ChosenSpaceship.GetWeapons())
         {
             weapon.TickDownTimeToNextShot();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Munition munition = other.GetComponent<Munition>();
+        if(munition == null)
+        {
+            return;
+        }
+        float damage = munition.GetBaseDamage();
+        Debug.Log("player was hit");
+        if (munition.IsEnemyMunition == true)
+        {
+            this.ChosenSpaceship.TakeDamage(damage);
+            Debug.Log("player was hit by enemy");
         }
     }
 

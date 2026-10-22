@@ -41,16 +41,18 @@ public class WeaponManager : MonoBehaviour
                 this._timeToNextShot -= Time.deltaTime;
             }
         }
-        private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn)
+        private void SpawnMunition(Vector2 spawnCoords, Quaternion rotation, GameObject munitionToSpawn, bool isEnemyMunition)
         {
-            Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+            GameObject munitionObject = Instantiate(munitionToSpawn,position:spawnCoords, rotation:rotation);
+            Munition munition = munitionObject.GetComponent<Munition>();
+            munition.IsEnemyMunition = isEnemyMunition;
         }
-        public void OpenFire(Vector2 pos, float angle)
+        public void OpenFire(Vector2 pos, float angle, bool isEnemyMunition)
         // rotation of 0 is straight up
         {
             if (this._timeToNextShot <= 0)
             {
-                SpawnMunition(pos, Quaternion.Euler(0f, 0f, angle), this._munitionPrefab);
+                SpawnMunition(pos, Quaternion.Euler(0f, 0f, angle), this._munitionPrefab, isEnemyMunition);
                 // Debug.Log("weapon is shooting (this message is supposed to be spammed)");
                 this._timeToNextShot = 60f/this._fireRateRPM;     // convert rpm to interval in seconds
             }
