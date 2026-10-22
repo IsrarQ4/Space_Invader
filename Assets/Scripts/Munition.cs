@@ -1,7 +1,4 @@
 using System;
-using System.Numerics;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Munition : MonoBehaviour
@@ -10,10 +7,10 @@ public class Munition : MonoBehaviour
     [System.NonSerialized] public bool IsEnemyMunition;
     [SerializeField] private float _speed;
     [SerializeField] private float _baseDamage;
-    [SerializeField] private float _maxRange;
     [SerializeField] private RocketMotor _rocketMotor = new RocketMotor();
-    [System.Serializable] private class RocketMotor
-    {   
+    [System.Serializable]
+    private class RocketMotor
+    {
         [SerializeField] private bool _rocketEnabled;
         [NonSerialized] public bool isBurning;
         [SerializeField] private float _burnTime;
@@ -52,7 +49,7 @@ public class Munition : MonoBehaviour
     {
         if (_rocketMotor.GetBurnTime() > 0f && _rocketMotor.GetRocketEnabled() == true)
         {
-            this._speed += this._rocketMotor.GetThrust() / (1/Time.smoothDeltaTime);
+            this._speed += this._rocketMotor.GetThrust() / (1 / Time.smoothDeltaTime);
             this._rb.linearVelocity = transform.up * this._speed;
             _rocketMotor.TickDownBurnTime();
             Debug.Log(this._speed);
@@ -65,38 +62,27 @@ public class Munition : MonoBehaviour
         }
 
     }
-    private float _lifeTime;
-    
+
     private bool _damageEnabled;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public float GetMaxRange()
-    {
-        return this._maxRange;
-    }
-    public float GetRemainingLifeTime()
-    {
-        return this._lifeTime;
-    }
+
     public float GetBaseDamage()
     {
         return this._baseDamage;
     }
 
     void Start() // i guess this is the Munition constructor now
-    {   
-        // TO-DO: validate properties _maxRange and RocketMotor stuff
+    {
         this._damageEnabled = true;
         this._rb = GetComponent<Rigidbody2D>();
 
-
+        // there is no max range anymore. munitions fly until they leave the screen (see Update)
         if (this._rocketMotor.GetRocketEnabled() == true)
         {
-            this._lifeTime = 999f;  // use a different method to calculate lifetime from range
             this._rocketMotor.isBurning = true;
         }
-        else
+        else if (this._speed == 0)
         {
-            this._lifeTime = calculateTimeToMaxRange();
+            Debug.LogWarning("Munition has zero speed and no rocket motor, it will never move!");
         }
         this._rb.linearVelocity = transform.up * _speed;
     }
@@ -110,57 +96,37 @@ public class Munition : MonoBehaviour
             Burn();
         }
 
-        this._lifeTime -= Time.deltaTime;
         // Deleting munitions that move out of camera
         float cameraScale = 5f;     // this should be equal to the value inside Size in the camera component in the Main Camera object 
         float destructionOffset = 1f;
 
         // pls dont freak out over this unconventional formatting i dont know a cleaner way to check position ranges :cry face emoji:
         // disable munitions that move out of the camera frame - prevents sniping enemies that haven't entered yet
-        if (transform.position.y >= cameraScale                
+        if (transform.position.y >= cameraScale
             || transform.position.y <= -(cameraScale)
-            || transform.position.x >= 16f/9f * cameraScale
-            || transform.position.x <= -(16f/9f * cameraScale))
-        {this._damageEnabled = false;}      // prevent killing enemies outside of the frame (disabled functionality yet to be implemented)
-        
+            || transform.position.x >= 16f / 9f * cameraScale
+            || transform.position.x <= -(16f / 9f * cameraScale))
+        { this._damageEnabled = false; }      // prevent killing enemies outside of the frame (disabled functionality yet to be implemented)
+
         // delete munitions after they move a little further out of the camera frame
         // prevents munitions from dissapearing while partially visible on screen (more visually appealing)
-        if (_lifeTime <= 0
-            || transform.position.y >= cameraScale + destructionOffset
+        if (transform.position.y >= cameraScale + destructionOffset
             || transform.position.y <= -(cameraScale + destructionOffset)
-            || transform.position.x >= 16f/9f * cameraScale + destructionOffset
-            || transform.position.x <= -(16f/9f * cameraScale + destructionOffset))
-        {Destroy(gameObject);}
+            || transform.position.x >= 16f / 9f * cameraScale + destructionOffset
+            || transform.position.x <= -(16f / 9f * cameraScale + destructionOffset))
+        { Destroy(gameObject); }
     }
 
-    private float calculateTimeToMaxRange()
+    // Enemy and Player call this when the munition hits something it can damage
+    public void DestroyOnHit()
     {
-        if (this._speed == 0)
-        {
-            Debug.Log("idk why unity doesn't throw divide by zero error :p");
-            Debug.LogWarning("Munition object with zero speed destroyed. Self-propelled munitions should have _lifeTime manually set manually or with a different method.");
-            Destroy(gameObject);
-        }
-        float timeToMaxRange = this._maxRange / this._speed;  // d/v = t basic grade 11 kinematics haha
-        return timeToMaxRange;
+        Destroy(gameObject);
     }
 
-    // idk why i made this overloaded method maybe i'll move all my utility math methods into their own script
-    private float calculateTimeToMaxRange(float targetRange, float speed)
-    {
-        if (speed == 0)
-        {
-            Debug.Log("idk why unity doesn't throw divide by zero error :p");
-            Debug.LogWarning("Munition object with zero speed destroyed. Self-propelled munitions should have _lifeTime manually set manually or with a different method.");
-            Destroy(gameObject);
-        }
-        float timeToMaxRange = targetRange / speed;
-        return timeToMaxRange;
-    }
     //setter and getter for the dmg bc i need for enemys
     // No you dont, just make a new munition prefab and attach it inside the
     // muntionprefab field of the serialized Weapon object of the enemy
-    
+
     // public void SetDamage(float damage)
     // {
     //     _baseDamage = damage;
@@ -173,5 +139,3 @@ public class Munition : MonoBehaviour
     // hi kids remember to document the shit out of your code because people dont want spend hours to translating your sphagetti
     // also text retains info better than brain
 }
-
-

@@ -75,20 +75,20 @@ public class EnemyWave : MonoBehaviour
         
        
 
-                float randomX = Random.Range(-_width, _width);
-                float randomY = Random.Range(0, _height);
-                Vector2 spawnPosition = new Vector2(randomX, randomY);
-                int randomEnemy = Random.Range(0, 100);
-                if (randomEnemy <= _enemyOneWeight * 100)
-                {
-                    Instantiate(_enemyPrefabOne, spawnPosition, Quaternion.identity);
-                }
+        float randomX = Random.Range(-_width, _width);
+        float randomY = 4.5f - Random.Range(0f, _height);
+        Vector2 spawnPosition = new Vector2(randomX, randomY);
+        int randomEnemy = Random.Range(0, 100);
+        if (randomEnemy <= _enemyOneWeight * 100)
+            {
+                Instantiate(_enemyPrefabOne, spawnPosition, Quaternion.identity);
+            }
                 else
-                {
-                    Instantiate(_enemyPrefabTwo, spawnPosition, Quaternion.identity);
-                }
+            {
+                Instantiate(_enemyPrefabTwo, spawnPosition, Quaternion.identity);
+            }
                 
-                _enemiesSpawned++;
+         _enemiesSpawned++;
             
         
     }

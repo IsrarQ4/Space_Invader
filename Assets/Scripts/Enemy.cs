@@ -78,6 +78,7 @@ public class Enemy : MonoBehaviour
         if (munition.IsEnemyMunition == false)
         {
             TakeDamage(damage);
+            munition.DestroyOnHit();    
         }
     }
     // {
@@ -139,6 +140,10 @@ public class Enemy : MonoBehaviour
         if (_currentHealth <= 0f)
         {
             Die();
+        }
+        else
+        {
+            AudioManager.Instance.PlayHit();
         }
     }
 
